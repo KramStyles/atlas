@@ -7,15 +7,18 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect
 from splash import Ui_MainWindow as importSplash
 from main import Ui_MainWindow as importMain
 
-
 # Global Variables
 counter = 0
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.ui = importMain()
         self.ui.setupUi(self)
+
+        QTimer.singleShot(2000, lambda: self.ui.lblTitle.setText("<b>Coming </b>Soon"))
+        QTimer.singleShot(2000, lambda :self.setStyleSheet("background: #666; color: #eee;"))
 
 
 class Splash(QMainWindow):
@@ -44,6 +47,11 @@ class Splash(QMainWindow):
         self.timer.timeout.connect(self.progress)
         self.timer.start(35)
 
+        QTimer.singleShot(2000, lambda: self.ui.lblDesc.setText("<b>Loading </b>Database"))
+        QTimer.singleShot(3000, lambda: self.ui.lblDesc.setText("<b>Processing </b>Interface"))
+        QTimer.singleShot(4000, lambda: self.ui.lblDesc.setText("<b>Updating </b>User Details"))
+        QTimer.singleShot(5000, lambda: self.ui.lblDesc.setText("<b>Almost </b>Done"))
+
         self.show()
 
     def progress(self):
@@ -57,7 +65,6 @@ class Splash(QMainWindow):
             self.close()
 
         counter += 1
-
 
 
 if __name__ == '__main__':
