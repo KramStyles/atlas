@@ -18,7 +18,7 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         QTimer.singleShot(2000, lambda: self.ui.lblTitle.setText("<b>Coming </b>Soon"))
-        QTimer.singleShot(2000, lambda :self.setStyleSheet("background: #666; color: #eee;"))
+        QTimer.singleShot(2000, lambda:self.setStyleSheet("background: #333; color: #eee;"))
 
 
 class Splash(QMainWindow):
