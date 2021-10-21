@@ -1,6 +1,6 @@
 import sys, os
 
-from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve
 from PyQt5.QtGui import QColor, QIcon, QMouseEvent
 from PyQt5.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip
 
@@ -58,6 +58,7 @@ class Dashboard(QMainWindow):
         self.ui.btnClose.clicked.connect(self.close)
         self.ui.btnMinimize.clicked.connect(lambda: self.showMinimized())
         self.ui.btnRestore.clicked.connect(self.showRestore)
+        self.ui.btnMenu.clicked.connect(self.animateMenu)
 
         # Show stacked widgets
         # self.ui.btnBattery.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.stkBattery))
@@ -83,6 +84,20 @@ class Dashboard(QMainWindow):
 
     def mousePressEvent(self, a0: QMouseEvent) -> None:
         self.clickPosition = a0.globalPos()
+
+    def animateMenu(self):
+        mWidth = self.ui.frmBodyLeft.width()
+        if mWidth <= 200:
+            nmWidth = 500
+        else:
+            nmWidth = 100
+        self.animate = QPropertyAnimation(self.ui.frmBodyLeft, b'maximumWidth')
+        self.animate.setDuration(300)
+        self.animate.setStartValue(mWidth)
+        self.animate.setEndValue(nmWidth)
+        self.animate.setEasingCurve(QEasingCurve.InOutQuart)
+        self.animate.start()
+
 
 
 # class MainWindow(QMainWindow):
