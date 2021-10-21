@@ -47,7 +47,22 @@ class Dashboard(QMainWindow):
     def buttonHandle(self):
         self.ui.btnClose.clicked.connect(self.close)
         self.ui.btnMinimize.clicked.connect(lambda: self.showMinimized())
-        self.ui.btnRestore.clicked.connect(lambda: self.showRestore())
+        self.ui.btnRestore.clicked.connect(self.showRestore)
+
+        # Show stacked widgets
+        # self.ui.btnBattery.clicked.connect(self.ui.stackedWidget.setCurrentWidget(self.ui.stkBattery))
+        # self.ui.btnActivities.clicked.connect(self.ui.stackedWidget.setCurrentWidget(self.ui.stkActivities))
+        # self.ui.btnNetwork.clicked.connect(self.ui.stackedWidget.setCurrentWidget(self.ui.stkNetwork))
+        # self.ui.btnProcessor.clicked.connect(self.ui.stackedWidget.setCurrentWidget(self.ui.stkProcessor))
+        # self.ui.btnSensors.clicked.connect(self.ui.stackedWidget.setCurrentWidget(self.ui.stkSensors))
+        # self.ui.btnStorage.clicked.connect(self.ui.stackedWidget.setCurrentWidget(self.ui.stkStorage))
+        self.stackSetter(self.ui.btnStorage, self.ui.stkStorage)
+        self.stackSetter(self.ui.btnSensors, self.ui.stkSensors)
+        self.stackSetter(self.ui.btnBattery, self.ui.stkBattery)
+        self.stackSetter(self.ui.btnActivities, self.ui.stkActivities)
+        self.stackSetter(self.ui.btnNetwork, self.ui.stkNetwork)
+        self.stackSetter(self.ui.btnSystem, self.ui.stkSystem)
+        self.stackSetter(self.ui.btnProcessor, self.ui.stkProcessor)
 
     def showRestore(self):
         if self.isMaximized():
@@ -56,6 +71,9 @@ class Dashboard(QMainWindow):
         else:
             self.showMaximized()
             self.ui.btnRestore.setIcon(QIcon("files/feather/copy.svg"))
+
+    def stackSetter(self, Button, Stack):
+        Button.clicked.connect(self.ui.stackedWidget.setCurrentWidget(Stack))
 
 
 # class MainWindow(QMainWindow):
