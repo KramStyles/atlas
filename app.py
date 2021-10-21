@@ -1,7 +1,7 @@
 import sys, os
 
 from PyQt5.QtCore import Qt, QTimer
-from PyQt5.QtGui import QColor, QIcon
+from PyQt5.QtGui import QColor, QIcon, QMouseEvent
 from PyQt5.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip
 
 import qt_material
@@ -26,6 +26,16 @@ class Dashboard(QMainWindow):
         # Remove title bar and add translucent backgrouond
         self.setWindowFlag(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
+
+        # Function to move window around
+        def moveWindow(event):
+            if not self.isMaximized():
+                if event.buttons() == Qt.LeftButton:
+                    self.move(self.pos() + event.globalPos() - self.clickPosition)
+                    self.clickPosition = event.globalPos()
+                    event.accept()
+
+        self.ui.frmHeader.mouseMoveEvent = moveWindow
 
         # Shadow Effect Style
         self.shadow = QGraphicsDropShadowEffect(self)
@@ -70,6 +80,9 @@ class Dashboard(QMainWindow):
 
     def stackSetter(self, Button, Stack):
         Button.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(Stack))
+
+    def mousePressEvent(self, a0: QMouseEvent) -> None:
+        self.clickPosition = a0.globalPos()
 
 
 # class MainWindow(QMainWindow):
