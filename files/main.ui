@@ -536,7 +536,13 @@ QStatusBar::item {
         <number>0</number>
        </property>
        <item>
-        <widget class="QcustomSlideMenu" name="side_menu" native="true">
+        <widget class="QFrame" name="side_menu">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <property name="leftMargin">
            <number>0</number>
@@ -724,7 +730,7 @@ QStatusBar::item {
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
-           <widget class="QLabel" name="lblTitle">
+           <widget class="QLabel" name="label_2">
             <property name="font">
              <font>
               <family>Montserrat</family>
@@ -751,14 +757,6 @@ QStatusBar::item {
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QcustomSlideMenu</class>
-   <extends>QWidget</extends>
-   <header location="global">Custom_Widgets.Widgets.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="icons.qrc"/>
  </resources>

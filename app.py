@@ -1,24 +1,74 @@
-import sys
+import sys, os
 
 from PyQt5.QtCore import Qt, QTimer
-from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect
+from PyQt5.QtGui import QColor, QIcon
+from PyQt5.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip
+
+import qt_material
 
 from splash import Ui_MainWindow as importSplash
-from main import Ui_MainWindow as importMain
+from dashboard import Ui_MainWindow as importDashboard
+
+# from main import Ui_MainWindow as importMain
 
 # Global Variables
 counter = 0
 
 
-class MainWindow(QMainWindow):
+class Dashboard(QMainWindow):
     def __init__(self):
-        super(MainWindow, self).__init__()
-        self.ui = importMain()
+        QMainWindow.__init__(self)
+        self.ui = importDashboard()
         self.ui.setupUi(self)
+        qt_material.apply_stylesheet(self, theme="dark_amber.xml")
+        # print(qt_material.list_themes())
 
-        QTimer.singleShot(2000, lambda: self.ui.lblTitle.setText("<b>Coming </b>Soon"))
-        QTimer.singleShot(2000, lambda:self.setStyleSheet("background: #333; color: #eee;"))
+        # Remove title bar and add translucent backgrouond
+        self.setWindowFlag(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+
+        # Shadow Effect Style
+        self.shadow = QGraphicsDropShadowEffect(self)
+        self.shadow.setBlurRadius(50)
+        self.shadow.setYOffset(0)
+        self.shadow.setXOffset(0)
+        self.shadow.setColor(QColor(0, 92, 157, 550))
+        self.ui.centralwidget.setGraphicsEffect(self.shadow)
+
+        self.setWindowIcon(QIcon("files/feather/cpu.svg"))
+        self.setWindowTitle('Atlas')
+
+        # Grip to resize the window
+        QSizeGrip(self.ui.frmSizeGrip)
+        self.buttonHandle()
+
+        self.show()
+
+    def buttonHandle(self):
+        self.ui.btnClose.clicked.connect(self.close)
+        self.ui.btnMinimize.clicked.connect(lambda: self.showMinimized())
+        self.ui.btnRestore.clicked.connect(lambda: self.showRestore())
+
+    def showRestore(self):
+        if self.isMaximized():
+            self.showNormal()
+            self.ui.btnRestore.setIcon(QIcon("files/feather/monitor.svg"))
+        else:
+            self.showMaximized()
+            self.ui.btnRestore.setIcon(QIcon("files/feather/copy.svg"))
+
+
+# class MainWindow(QMainWindow):
+#     def __init__(self):
+#         try:
+#             super(MainWindow, self).__init__()
+#             self.ui = importMain()
+#             self.ui.setupUi(self)
+#
+#             QTimer.singleShot(2000, lambda: self.ui.lblTitle.setText("<b>Coming </b>Soon"))
+#             QTimer.singleShot(2000, lambda: self.setStyleSheet("background: #333; color: #eee;"))
+#         except Exception as err:
+#             print(err)
 
 
 class Splash(QMainWindow):
@@ -59,7 +109,7 @@ class Splash(QMainWindow):
         self.ui.progressBar.setValue(counter)
         if counter > 100:
             self.timer.stop()
-            self.main = MainWindow()
+            self.main = Dashboard()
             self.main.show()
 
             self.close()
@@ -69,5 +119,5 @@ class Splash(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    splash = Splash()
+    splash = Dashboard()
     sys.exit(app.exec_())

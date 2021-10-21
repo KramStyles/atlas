@@ -437,7 +437,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.frame_2)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.side_menu = QcustomSlideMenu(self.frame_2)
+        self.side_menu = QCustomSlideMenu(self.frame_2)
         self.side_menu.setObjectName("side_menu")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.side_menu)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
