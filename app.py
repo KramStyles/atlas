@@ -1,13 +1,17 @@
 import sys, os
 
-from PyQt5.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve
-from PyQt5.QtGui import QColor, QIcon, QMouseEvent
-from PyQt5.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip
+# from PyQt5.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve
+# from PyQt5.QtGui import QColor, QIcon, QMouseEvent
+# from PyQt5.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip
+
+from PySide2.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip
+from PySide2.QtGui import QColor, QIcon, QMouseEvent
+from PySide2.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve
 
 import qt_material
 
 from splash import Ui_MainWindow as importSplash
-from dashboard import Ui_MainWindow as importDashboard
+from dash import Ui_MainWindow as importDashboard
 
 # from main import Ui_MainWindow as importMain
 
@@ -92,7 +96,7 @@ class Dashboard(QMainWindow):
         else:
             nmWidth = 100
         self.animate = QPropertyAnimation(self.ui.frmBodyLeft, b'maximumWidth')
-        self.animate.setDuration(300)
+        self.animate.setDuration(1000)
         self.animate.setStartValue(mWidth)
         self.animate.setEndValue(nmWidth)
         self.animate.setEasingCurve(QEasingCurve.InOutQuart)

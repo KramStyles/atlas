@@ -485,7 +485,7 @@
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>6</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="stkBattery">
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -503,6 +503,9 @@
                  <string>Battery Information</string>
                 </property>
                </widget>
+              </item>
+              <item>
+               <widget class="spiralProgressBar" name="widget_13" native="true"/>
               </item>
               <item alignment="Qt::AlignVCenter">
                <widget class="QFrame" name="frame_3">
@@ -1655,6 +1658,14 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>spiralProgressBar</class>
+   <extends>QWidget</extends>
+   <header>PySide2extn.SpiralProgressBar.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="icons.qrc"/>
  </resources>
