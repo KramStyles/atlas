@@ -14,8 +14,6 @@ import psutil as util
 from splash import Ui_MainWindow as importSplash
 from dashboard import Ui_MainWindow as importDashboard
 
-
-
 # Global Variables
 counter = 0
 
@@ -65,6 +63,46 @@ class Dashboard(QMainWindow):
 
     def battery(self):
         Battery = util.sensors_battery()
+        if not hasattr(util, "sensors battery"):
+            self.ui.lblBatteryStatus.setText("Platform not supported!")
+
+        if Battery is None:
+            self.ui.lblBatteryStatus.setText("Battery not found")
+
+        if Battery.power_plugged:
+            self.ui.lblBatteryCharge.setText(f"{round(Battery.percent, 2)}%")
+            self.ui.lblBatteryTimeLeft.setText("Null")
+            if Battery.percent < 100:
+                self.ui.lblBatteryStatus.setText('Battery Charging!')
+            else:
+                self.ui.lblBatteryStatus.setText('Battery Charged Fully!')
+            self.ui.lblBatteryPlugged.setText('Yes')
+        else:
+            self.ui.lblBatteryPlugged.setText('No')
+            self.ui.lblBatteryStatus.setText(f"{round(Battery.percent, 2)}%")
+            self.ui.lblBatteryTimeLeft.setText(self.secsToHours(Battery.secsleft))
+            if Battery.percent < 100:
+                self.ui.lblBatteryStatus.setText('Battery Discharging')
+            else:
+                self.ui.lblBatteryStatus.setText('Battery Full')
+
+        self.ui.progBattery.rpb_setMaximum(100)
+        self.ui.progBattery.rpb_setValue(Battery.percent)
+        self.ui.progBattery.rpb_setBarStyle('Hybrid2')
+        self.ui.progBattery.rpb_setLineColor((255, 215, 64))
+        self.ui.progBattery.rpb_setPieColor((100, 100, 100))
+        self.ui.progBattery.rpb_setTextColor((200, 200, 200))
+        self.ui.progBattery.rpb_setInitialPos('West')
+        self.ui.progBattery.rpb_setTextFormat('Percentage')
+        self.ui.progBattery.rpb_setLineWidth(15)
+        self.ui.progBattery.rpb_setPathWidth(15)
+        self.ui.progBattery.rpb_setLineCap('RoundCap')
+
+    # Function to convert seconds to hours
+    def secsToHours(self, secs):
+        mm, ss = divmod(secs, 60)
+        hh, mm = divmod(mm, 60)
+        return "%d:%02d:%02d" % (hh, mm, ss)
 
     def applyBtnStyle(self):
         for btn in self.ui.frmMenu.findChildren(QPushButton):
@@ -116,7 +154,6 @@ class Dashboard(QMainWindow):
         self.animate.setEndValue(nmWidth)
         self.animate.setEasingCurve(QEasingCurve.InOutQuart)
         self.animate.start()
-
 
 
 # class MainWindow(QMainWindow):
