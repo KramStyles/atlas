@@ -9,11 +9,12 @@ from PySide2.QtGui import QColor, QIcon, QMouseEvent
 from PySide2.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve
 
 import qt_material
+import psutil as util
 
 from splash import Ui_MainWindow as importSplash
 from dashboard import Ui_MainWindow as importDashboard
 
-# from main import Ui_MainWindow as importMain
+
 
 # Global Variables
 counter = 0
@@ -63,7 +64,7 @@ class Dashboard(QMainWindow):
         self.show()
 
     def battery(self):
-        Battery =
+        Battery = util.sensors_battery()
 
     def applyBtnStyle(self):
         for btn in self.ui.frmMenu.findChildren(QPushButton):
