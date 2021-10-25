@@ -4,14 +4,14 @@ import sys, os
 # from PyQt5.QtGui import QColor, QIcon, QMouseEvent
 # from PyQt5.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip
 
-from PySide2.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip
+from PySide2.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip, QPushButton
 from PySide2.QtGui import QColor, QIcon, QMouseEvent
 from PySide2.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve
 
 import qt_material
 
 from splash import Ui_MainWindow as importSplash
-from dash import Ui_MainWindow as importDashboard
+from dashboard import Ui_MainWindow as importDashboard
 
 # from main import Ui_MainWindow as importMain
 
@@ -56,7 +56,21 @@ class Dashboard(QMainWindow):
         QSizeGrip(self.ui.frmSizeGrip)
         self.buttonHandle()
 
+        for btn in self.ui.frmMenu.findChildren(QPushButton):
+            btn.clicked.connect(self.applyBtnStyle)
+
+        self.battery()
         self.show()
+
+    def battery(self):
+        Battery =
+
+    def applyBtnStyle(self):
+        for btn in self.ui.frmMenu.findChildren(QPushButton):
+            if btn.objectName() != self.sender().objectName():
+                btn.setStyleSheet("background-color: none;")
+
+        self.sender().setStyleSheet("background-color: #FFD740")
 
     def buttonHandle(self):
         self.ui.btnClose.clicked.connect(self.close)
