@@ -58,8 +58,10 @@ class Dashboard(QMainWindow):
         for btn in self.ui.frmMenu.findChildren(QPushButton):
             btn.clicked.connect(self.applyBtnStyle)
 
-        self.battery()
+        # self.battery()
         self.show()
+
+    """BATTERY INFORMATION"""
 
     def battery(self):
         Battery = util.sensors_battery()
@@ -88,15 +90,22 @@ class Dashboard(QMainWindow):
 
         self.ui.progBattery.rpb_setMaximum(100)
         self.ui.progBattery.rpb_setValue(Battery.percent)
-        self.ui.progBattery.rpb_setBarStyle('Hybrid2')
+        # 'Line', 'Donet', 'Hybrid1', 'Pizza', 'Pie' and 'Hybrid2'
+        self.ui.progBattery.rpb_setBarStyle('Pizza')
         self.ui.progBattery.rpb_setLineColor((255, 215, 64))
         self.ui.progBattery.rpb_setPieColor((100, 100, 100))
-        self.ui.progBattery.rpb_setTextColor((200, 200, 200))
-        self.ui.progBattery.rpb_setInitialPos('West')
+        self.ui.progBattery.rpb_setTextColor((204, 165, 93))
+        self.ui.progBattery.rpb_setInitialPos('North')
         self.ui.progBattery.rpb_setTextFormat('Percentage')
         self.ui.progBattery.rpb_setLineWidth(15)
         self.ui.progBattery.rpb_setPathWidth(15)
-        self.ui.progBattery.rpb_setLineCap('RoundCap')
+        self.ui.progBattery.rpb_setLineCap('SquareCap')
+        self.ui.progBattery.rpb_setLineStyle('DotLine')
+
+    """RAM AND SYSTEM INFORMATION"""
+
+    def cpu(self):
+        div = pow(1024, 3)
 
     # Function to convert seconds to hours
     def secsToHours(self, secs):
@@ -122,7 +131,7 @@ class Dashboard(QMainWindow):
 
         self.stackSetter(self.ui.btnStorage, self.ui.stkStorage)
         self.stackSetter(self.ui.btnSensors, self.ui.stkSensors)
-        self.stackSetter(self.ui.btnBattery, self.ui.stkBattery)
+        self.stackSetter(self.ui.btnBattery, self.ui.stkBattery, 1)
         self.stackSetter(self.ui.btnActivities, self.ui.stkActivities)
         self.stackSetter(self.ui.btnNetwork, self.ui.stkNetwork)
         self.stackSetter(self.ui.btnSystem, self.ui.stkSystem)
@@ -136,8 +145,10 @@ class Dashboard(QMainWindow):
             self.showMaximized()
             self.ui.btnRestore.setIcon(QIcon("files/feather/copy.svg"))
 
-    def stackSetter(self, Button, Stack):
+    def stackSetter(self, Button, Stack, Queue=None):
         Button.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(Stack))
+        if Queue == 1:
+            self.battery()
 
     def mousePressEvent(self, a0: QMouseEvent) -> None:
         self.clickPosition = a0.globalPos()
