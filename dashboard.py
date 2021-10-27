@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'files/dashboard.ui'
+# Form implementation generated from reading ui file 'dashboard.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -14,7 +14,7 @@ from PySide2 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(880, 679)
+        MainWindow.resize(760, 721)
         MainWindow.setStyleSheet("*{\n"
 "    border: none;\n"
 "}")
@@ -658,9 +658,27 @@ class Ui_MainWindow(object):
         self.frame_6.setObjectName("frame_6")
         self.horizontalLayout_10 = QtWidgets.QHBoxLayout(self.frame_6)
         self.horizontalLayout_10.setObjectName("horizontalLayout_10")
-        self.treeWidget = QtWidgets.QTreeWidget(self.frame_6)
-        self.treeWidget.setObjectName("treeWidget")
-        self.horizontalLayout_10.addWidget(self.treeWidget)
+        self.tblActivities = QtWidgets.QTableWidget(self.frame_6)
+        self.tblActivities.setObjectName("tblActivities")
+        self.tblActivities.setColumnCount(8)
+        self.tblActivities.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.tblActivities.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tblActivities.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tblActivities.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tblActivities.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tblActivities.setHorizontalHeaderItem(4, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tblActivities.setHorizontalHeaderItem(5, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tblActivities.setHorizontalHeaderItem(6, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tblActivities.setHorizontalHeaderItem(7, item)
+        self.horizontalLayout_10.addWidget(self.tblActivities)
         self.verticalLayout_9.addWidget(self.frame_6)
         self.frame_7 = QtWidgets.QFrame(self.stkActivities)
         self.frame_7.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -738,7 +756,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 242, 875))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 241, 879))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_13 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_13.setObjectName("verticalLayout_13")
@@ -929,7 +947,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -985,14 +1003,22 @@ class Ui_MainWindow(object):
         self.lblSysTime.setText(_translate("MainWindow", "Null"))
         self.label_52.setText(_translate("MainWindow", "Activities"))
         self.lineEdit.setPlaceholderText(_translate("MainWindow", "Find Activities"))
-        self.treeWidget.headerItem().setText(0, _translate("MainWindow", "ID"))
-        self.treeWidget.headerItem().setText(1, _translate("MainWindow", "Name"))
-        self.treeWidget.headerItem().setText(2, _translate("MainWindow", "Status"))
-        self.treeWidget.headerItem().setText(3, _translate("MainWindow", "Started"))
-        self.treeWidget.headerItem().setText(4, _translate("MainWindow", "Resume"))
-        self.treeWidget.headerItem().setText(5, _translate("MainWindow", "Suspend"))
-        self.treeWidget.headerItem().setText(6, _translate("MainWindow", "Terminate"))
-        self.treeWidget.headerItem().setText(7, _translate("MainWindow", "Kill"))
+        item = self.tblActivities.horizontalHeaderItem(0)
+        item.setText(_translate("MainWindow", "ID"))
+        item = self.tblActivities.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "Name"))
+        item = self.tblActivities.horizontalHeaderItem(2)
+        item.setText(_translate("MainWindow", "Status"))
+        item = self.tblActivities.horizontalHeaderItem(3)
+        item.setText(_translate("MainWindow", "Started"))
+        item = self.tblActivities.horizontalHeaderItem(4)
+        item.setText(_translate("MainWindow", "Resume"))
+        item = self.tblActivities.horizontalHeaderItem(5)
+        item.setText(_translate("MainWindow", "Suspend"))
+        item = self.tblActivities.horizontalHeaderItem(6)
+        item.setText(_translate("MainWindow", "Terminate"))
+        item = self.tblActivities.horizontalHeaderItem(7)
+        item.setText(_translate("MainWindow", "Kill"))
         self.pushButton_2.setText(_translate("MainWindow", "Resume"))
         self.pushButton_3.setText(_translate("MainWindow", "Suspend"))
         self.pushButton_4.setText(_translate("MainWindow", "Terminate"))

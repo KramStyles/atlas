@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>880</width>
-    <height>679</height>
+    <width>760</width>
+    <height>721</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -507,7 +507,7 @@
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>2</number>
+             <number>3</number>
             </property>
             <widget class="QWidget" name="stkBattery">
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1324,7 +1324,7 @@ font-size: 16px;</string>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_10">
                  <item>
-                  <widget class="QTreeWidget" name="treeWidget">
+                  <widget class="QTableWidget" name="tblActivities">
                    <column>
                     <property name="text">
                      <string>ID</string>
@@ -1540,8 +1540,8 @@ font-size: 16px;</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>242</width>
-                   <height>875</height>
+                   <width>241</width>
+                   <height>879</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_13">

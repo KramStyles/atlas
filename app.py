@@ -5,7 +5,7 @@ from sys import platform
 # from PyQt5.QtGui import QColor, QIcon, QMouseEvent
 # from PyQt5.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip
 
-from PySide2.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip, QPushButton
+from PySide2.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip, QPushButton, QTableWidgetItem
 from PySide2.QtGui import QColor, QIcon, QMouseEvent
 from PySide2.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve
 from multiprocessing import cpu_count
@@ -64,6 +64,7 @@ class Dashboard(QMainWindow):
 
         self.battery()
         self.sysInfo()
+        self.activities()
         self.show()
 
     """BATTERY INFORMATION"""
@@ -150,6 +151,43 @@ class Dashboard(QMainWindow):
         self.ui.progRam.rpb_setTextColor((49, 54, 59))
         self.ui.progRam.rpb_setInitialPos('North')
         self.ui.progRam.rpb_setLineWidth(13)
+
+    """PROCESSES AND PIDS"""
+    def createTable(self, row, column, text, tblName):
+        tableWidget = QTableWidgetItem()
+        getattr(self.ui, tblName).setItem(row, column, tableWidget)
+        tableWidget = getattr(self.ui, tblName).item(row, column)
+        tableWidget.setText(text)
+
+    def createTableButton(self, name, color, row, col):
+        Btn = QPushButton(self.ui.tblActivities)
+        Btn.setText(name)
+        Btn.setStyleSheet(f"color: {color}")
+        self.ui.tblActivities.setCellWidget(row, col, Btn)
+
+
+
+    def activities(self):
+        for pids in util.pids():
+            rowPosition = self.ui.tblActivities.rowCount()
+            self.ui.tblActivities.insertRow(rowPosition)
+
+            try:
+                process = util.Process(pids)
+                self.createTable(rowPosition, 0, f"{process.pid}", "tblActivities")
+                self.createTable(rowPosition, 1, f"{process.name()}", "tblActivities")
+                self.createTable(rowPosition, 2, f"{process.status()}", "tblActivities")
+                self.createTable(rowPosition, 3, f"{datetime.utcfromtimestamp(process.create_time()).strftime('%H:%M:%S | %A %B %d, %Y ')}", "tblActivities")
+
+                self.ui.tblActivities.verticalHeader().setDefaultSectionSize(55)
+
+                self.createTableButton('Suspend', 'rgb(255, 215, 64)', rowPosition, 4)
+                self.createTableButton('Resume', 'rgb(72, 168, 104)', rowPosition, 5)
+                self.createTableButton('Terminate', 'rgb(220, 20, 60)', rowPosition, 6)
+                self.createTableButton('Kill ', 'rgb(255, 255, 255)', rowPosition, 7)
+
+            except Exception as err:
+                print(err)
 
     def sysInfo(self):
         self.ui.lblSysDate.setText(datetime.now().strftime("%A, %B the %d, %Y"))
