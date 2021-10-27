@@ -5,10 +5,11 @@ from sys import platform
 # from PyQt5.QtGui import QColor, QIcon, QMouseEvent
 # from PyQt5.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip
 
-from PySide2.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip, QPushButton, QTableWidgetItem
+from PySide2.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip, QPushButton, QTableWidgetItem, QMessageBox
 from PySide2.QtGui import QColor, QIcon, QMouseEvent
 from PySide2.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve
 from multiprocessing import cpu_count
+from desk_functions import myMsgBox
 
 import qt_material
 import psutil as util
@@ -187,7 +188,7 @@ class Dashboard(QMainWindow):
                 self.createTableButton('Kill ', 'rgb(255, 255, 255)', rowPosition, 7)
 
             except Exception as err:
-                print(err)
+                myMsgBox(str(err), 'Table Error', QMessageBox.Warning)
 
     def sysInfo(self):
         self.ui.lblSysDate.setText(datetime.now().strftime("%A, %B the %d, %Y"))
