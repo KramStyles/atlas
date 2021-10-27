@@ -1,4 +1,5 @@
 import sys, os
+from sys import platform
 
 # from PyQt5.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve
 # from PyQt5.QtGui import QColor, QIcon, QMouseEvent
@@ -7,12 +8,15 @@ import sys, os
 from PySide2.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip, QPushButton
 from PySide2.QtGui import QColor, QIcon, QMouseEvent
 from PySide2.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve
+from multiprocessing import cpu_count
 
 import qt_material
 import psutil as util
+import platform
 
 from splash import Ui_MainWindow as importSplash
 from dashboard import Ui_MainWindow as importDashboard
+from datetime import date, datetime
 
 # Global Variables
 counter = 0
@@ -58,7 +62,8 @@ class Dashboard(QMainWindow):
         for btn in self.ui.frmMenu.findChildren(QPushButton):
             btn.clicked.connect(self.applyBtnStyle)
 
-        # self.battery()
+        self.battery()
+        self.sysInfo()
         self.show()
 
     """BATTERY INFORMATION"""
@@ -94,7 +99,7 @@ class Dashboard(QMainWindow):
         self.ui.progBattery.rpb_setBarStyle('Pizza')
         self.ui.progBattery.rpb_setLineColor((255, 215, 64))
         self.ui.progBattery.rpb_setPieColor((100, 100, 100))
-        self.ui.progBattery.rpb_setTextColor((204, 165, 93))
+        self.ui.progBattery.rpb_setTextColor((50, 50, 50))
         self.ui.progBattery.rpb_setInitialPos('North')
         self.ui.progBattery.rpb_setTextFormat('Percentage')
         self.ui.progBattery.rpb_setLineWidth(15)
@@ -106,6 +111,57 @@ class Dashboard(QMainWindow):
 
     def cpu(self):
         div = pow(1024, 3)
+        totalram = util.virtual_memory()[0] / div
+        self.ui.lblRamTotal.setText(f"{totalram:.4f}GB")
+
+        availram = util.virtual_memory()[1] / div
+        self.ui.lblRamAvail.setText(f"{availram:.4f}GB")
+
+        usedram = util.virtual_memory()[3] / div
+        self.ui.lblRamUsed.setText(f"{usedram:.4f}GB")
+
+        freeram = util.virtual_memory()[4] / div
+        self.ui.lblRamFree.setText(f"{freeram:.4f}GB")
+
+        availram = util.virtual_memory()[2]
+        self.ui.lblRamUsage.setText(f"{availram:.1f}%")
+
+        self.ui.progCpu.spb_setMinimum((0, 0, 0))
+        self.ui.progCpu.spb_setMaximum((totalram, totalram, totalram))
+        self.ui.progCpu.spb_setValue((availram, usedram, freeram))
+        print(totalram, availram, usedram, freeram)
+        self.ui.progCpu.spb_lineColor(((255, 215, 64), (255, 255, 255), (255, 215, 64)))
+        self.ui.progCpu.spb_setInitialPos(('West', 'West', 'West'))
+        self.ui.progCpu.spb_lineCap(('RoundCap', 'SquareCap', 'RoundCap'))
+        self.ui.progCpu.spb_lineWidth(15)
+        self.ui.progCpu.spb_setPathHidden(True)
+        self.ui.progCpu.spb_setGap(25)
+
+
+        self.ui.lblCpuCounter.setText(str(cpu_count()))
+        self.ui.lblCpuPer.setText(f"{util.cpu_percent()}")
+        self.ui.lblCpuCore.setText(str(util.cpu_count(logical=False)))
+
+        
+        self.ui.progRam.rpb_setMaximum(100)
+        self.ui.progRam.rpb_setValue(availram)
+        self.ui.progRam.rpb_setBarStyle('Pizza')
+        self.ui.progRam.rpb_setLineColor((255, 215, 64))
+        self.ui.progRam.rpb_setTextColor((49, 54, 59))
+        self.ui.progRam.rpb_setInitialPos('North')
+        self.ui.progRam.rpb_setLineWidth(13)
+
+    def sysInfo(self):
+        self.ui.lblSysDate.setText(datetime.now().strftime("%A, %B the %d, %Y"))
+        self.ui.lblSysTime.setText(datetime.now().strftime("%H:%M:%S"))
+        
+        self.ui.lblSysMachine.setText(platform.machine())
+        self.ui.lblSysPlatform.setText(platform.platform())
+        self.ui.lblSysVersion.setText(platform.version())
+        self.ui.lblSysInfo.setText(platform.system())
+        self.ui.lblSysProc.setText(platform.processor())
+
+
 
     # Function to convert seconds to hours
     def secsToHours(self, secs):
@@ -135,7 +191,7 @@ class Dashboard(QMainWindow):
         self.stackSetter(self.ui.btnActivities, self.ui.stkActivities)
         self.stackSetter(self.ui.btnNetwork, self.ui.stkNetwork)
         self.stackSetter(self.ui.btnSystem, self.ui.stkSystem)
-        self.stackSetter(self.ui.btnProcessor, self.ui.stkProcessor)
+        self.stackSetter(self.ui.btnProcessor, self.ui.stkProcessor, 2)
 
     def showRestore(self):
         if self.isMaximized():
@@ -149,6 +205,8 @@ class Dashboard(QMainWindow):
         Button.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(Stack))
         if Queue == 1:
             self.battery()
+        elif Queue == 2:
+            self.cpu()
 
     def mousePressEvent(self, a0: QMouseEvent) -> None:
         self.clickPosition = a0.globalPos()

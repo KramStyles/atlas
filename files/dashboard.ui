@@ -507,7 +507,7 @@
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>1</number>
+             <number>2</number>
             </property>
             <widget class="QWidget" name="stkBattery">
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -576,6 +576,10 @@
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font-family: poppins;
+font-size: 16px;</string>
                 </property>
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
@@ -649,6 +653,16 @@
              <layout class="QVBoxLayout" name="verticalLayout_6">
               <item alignment="Qt::AlignVCenter">
                <widget class="QFrame" name="frmCpuInfo">
+                <property name="font">
+                 <font>
+                  <family>poppins</family>
+                  <pointsize>-1</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font-family: poppins;
+font-size: 16px;</string>
+                </property>
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
                 </property>
@@ -656,26 +670,6 @@
                  <enum>QFrame::Raised</enum>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_2">
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_12">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="text">
-                    <string>CPU Counter</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="QLabel" name="lblCpuCounter">
-                   <property name="text">
-                    <string>Null</string>
-                   </property>
-                  </widget>
-                 </item>
                  <item row="1" column="0">
                   <widget class="QLabel" name="label_13">
                    <property name="maximumSize">
@@ -684,6 +678,12 @@
                      <height>50</height>
                     </size>
                    </property>
+                   <property name="font">
+                    <font>
+                     <family>poppins</family>
+                     <pointsize>-1</pointsize>
+                    </font>
+                   </property>
                    <property name="text">
                     <string>CPU Per</string>
                    </property>
@@ -691,13 +691,44 @@
                  </item>
                  <item row="1" column="1">
                   <widget class="QLabel" name="lblCpuPer">
+                   <property name="font">
+                    <font>
+                     <family>poppins</family>
+                     <pointsize>-1</pointsize>
+                    </font>
+                   </property>
                    <property name="text">
                     <string>Null</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="1">
-                  <widget class="QLabel" name="lblCpuCore">
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_12">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>50</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>poppins</family>
+                     <pointsize>-1</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>CPU Counter</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QLabel" name="lblCpuCounter">
+                   <property name="font">
+                    <font>
+                     <family>poppins</family>
+                     <pointsize>-1</pointsize>
+                    </font>
+                   </property>
                    <property name="text">
                     <string>Null</string>
                    </property>
@@ -711,17 +742,42 @@
                      <height>50</height>
                     </size>
                    </property>
+                   <property name="font">
+                    <font>
+                     <family>poppins</family>
+                     <pointsize>-1</pointsize>
+                    </font>
+                   </property>
                    <property name="text">
                     <string>CPU Main Core</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="2" rowspan="3">
-                  <widget class="spiralProgressBar" name="progCpu" native="true">
+                 <item row="2" column="1">
+                  <widget class="QLabel" name="lblCpuCore">
+                   <property name="font">
+                    <font>
+                     <family>poppins</family>
+                     <pointsize>-1</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Null</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="2">
+                  <widget class="roundProgressBar" name="progRam" native="true">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
                      <height>200</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>300</width>
+                     <height>16777215</height>
                     </size>
                    </property>
                   </widget>
@@ -731,6 +787,16 @@
               </item>
               <item alignment="Qt::AlignTop">
                <widget class="QFrame" name="frmRamInfo">
+                <property name="font">
+                 <font>
+                  <family>poppins</family>
+                  <pointsize>-1</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font-family: poppins;
+font-size: 16px;</string>
+                </property>
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
                 </property>
@@ -755,6 +821,12 @@
                         <height>30</height>
                        </size>
                       </property>
+                      <property name="font">
+                       <font>
+                        <family>poppins</family>
+                        <pointsize>-1</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Total RAM</string>
                       </property>
@@ -767,6 +839,12 @@
                         <width>16777215</width>
                         <height>30</height>
                        </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>poppins</family>
+                        <pointsize>-1</pointsize>
+                       </font>
                       </property>
                       <property name="text">
                        <string>Null</string>
@@ -781,6 +859,12 @@
                         <height>30</height>
                        </size>
                       </property>
+                      <property name="font">
+                       <font>
+                        <family>poppins</family>
+                        <pointsize>-1</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Available</string>
                       </property>
@@ -793,6 +877,12 @@
                         <width>16777215</width>
                         <height>30</height>
                        </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>poppins</family>
+                        <pointsize>-1</pointsize>
+                       </font>
                       </property>
                       <property name="text">
                        <string>RAM Usage</string>
@@ -807,6 +897,12 @@
                         <height>30</height>
                        </size>
                       </property>
+                      <property name="font">
+                       <font>
+                        <family>poppins</family>
+                        <pointsize>-1</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Null</string>
                       </property>
@@ -819,6 +915,12 @@
                         <width>16777215</width>
                         <height>30</height>
                        </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>poppins</family>
+                        <pointsize>-1</pointsize>
+                       </font>
                       </property>
                       <property name="text">
                        <string>Used</string>
@@ -833,6 +935,12 @@
                         <height>30</height>
                        </size>
                       </property>
+                      <property name="font">
+                       <font>
+                        <family>poppins</family>
+                        <pointsize>-1</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Null</string>
                       </property>
@@ -845,6 +953,12 @@
                         <width>16777215</width>
                         <height>30</height>
                        </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>poppins</family>
+                        <pointsize>-1</pointsize>
+                       </font>
                       </property>
                       <property name="text">
                        <string>Free</string>
@@ -859,6 +973,12 @@
                         <height>30</height>
                        </size>
                       </property>
+                      <property name="font">
+                       <font>
+                        <family>poppins</family>
+                        <pointsize>-1</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Null</string>
                       </property>
@@ -872,6 +992,12 @@
                         <height>30</height>
                        </size>
                       </property>
+                      <property name="font">
+                       <font>
+                        <family>poppins</family>
+                        <pointsize>-1</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Null</string>
                       </property>
@@ -880,19 +1006,25 @@
                    </layout>
                   </widget>
                  </item>
-                 <item row="2" column="1">
-                  <widget class="roundProgressBar" name="progRam" native="true">
+                 <item row="2" column="2">
+                  <widget class="spiralProgressBar" name="progCpu" native="true">
                    <property name="minimumSize">
                     <size>
-                     <width>0</width>
+                     <width>200</width>
                      <height>200</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
                      <width>300</width>
-                     <height>16777215</height>
+                     <height>300</height>
                     </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>poppins</family>
+                     <pointsize>-1</pointsize>
+                    </font>
                    </property>
                   </widget>
                  </item>
@@ -913,7 +1045,7 @@
                 </property>
                 <layout class="QGridLayout" name="gridLayout_5">
                  <item row="3" column="1">
-                  <widget class="QLabel" name="label_43">
+                  <widget class="QLabel" name="lblSysVersion">
                    <property name="font">
                     <font>
                      <family>raleway</family>
@@ -941,7 +1073,7 @@
                   </widget>
                  </item>
                  <item row="1" column="0">
-                  <widget class="QLabel" name="label_39">
+                  <widget class="QLabel" name="lblSysInfo">
                    <property name="font">
                     <font>
                      <family>raleway</family>
@@ -1014,7 +1146,7 @@
                   </widget>
                  </item>
                  <item row="3" column="3">
-                  <widget class="QLabel" name="label_45">
+                  <widget class="QLabel" name="lblSysMachine">
                    <property name="font">
                     <font>
                      <family>raleway</family>
@@ -1057,7 +1189,7 @@
                   </widget>
                  </item>
                  <item row="5" column="1">
-                  <widget class="QLabel" name="label_48">
+                  <widget class="QLabel" name="lblSysPlatform">
                    <property name="font">
                     <font>
                      <family>raleway</family>
@@ -1070,7 +1202,7 @@
                   </widget>
                  </item>
                  <item row="6" column="1">
-                  <widget class="QLabel" name="label_49">
+                  <widget class="QLabel" name="lblSysDate">
                    <property name="font">
                     <font>
                      <family>raleway</family>
@@ -1083,7 +1215,7 @@
                   </widget>
                  </item>
                  <item row="5" column="3">
-                  <widget class="QLabel" name="label_50">
+                  <widget class="QLabel" name="lblSysProc">
                    <property name="font">
                     <font>
                      <family>raleway</family>
@@ -1096,7 +1228,7 @@
                   </widget>
                  </item>
                  <item row="6" column="3">
-                  <widget class="QLabel" name="label_51">
+                  <widget class="QLabel" name="lblSysTime">
                    <property name="font">
                     <font>
                      <family>raleway</family>
@@ -1408,8 +1540,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>241</width>
-                   <height>879</height>
+                   <width>242</width>
+                   <height>875</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_13">
