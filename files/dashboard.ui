@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>760</width>
-    <height>721</height>
+    <width>1076</width>
+    <height>744</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -507,7 +507,7 @@
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>3</number>
+             <number>4</number>
             </property>
             <widget class="QWidget" name="stkBattery">
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1430,7 +1430,7 @@ font-size: 16px;</string>
                </widget>
               </item>
               <item>
-               <widget class="QTreeWidget" name="treeWidget_2">
+               <widget class="QTableWidget" name="tblStorage">
                 <column>
                  <property name="text">
                   <string>Device</string>
@@ -1438,7 +1438,12 @@ font-size: 16px;</string>
                 </column>
                 <column>
                  <property name="text">
-                  <string>Mount Point</string>
+                  <string>Mount</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Type</string>
                  </property>
                 </column>
                 <column>
@@ -1458,17 +1463,22 @@ font-size: 16px;</string>
                 </column>
                 <column>
                  <property name="text">
-                  <string>Total Storage</string>
+                  <string>Total</string>
                  </property>
                 </column>
                 <column>
                  <property name="text">
-                  <string>Used Storage</string>
+                  <string>Used</string>
                  </property>
                 </column>
                 <column>
                  <property name="text">
-                  <string>Free Storage</string>
+                  <string>Free</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Progress</string>
                  </property>
                 </column>
                </widget>

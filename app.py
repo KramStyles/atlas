@@ -5,7 +5,7 @@ from sys import platform
 # from PyQt5.QtGui import QColor, QIcon, QMouseEvent
 # from PyQt5.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip
 
-from PySide2.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip, QPushButton, QTableWidgetItem, QMessageBox
+from PySide2.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip, QPushButton, QTableWidgetItem, QMessageBox, QProgressBar
 from PySide2.QtGui import QColor, QIcon, QMouseEvent
 from PySide2.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve
 from multiprocessing import cpu_count
@@ -21,6 +21,8 @@ from datetime import date, datetime
 
 # Global Variables
 counter = 0
+theme_color_tuple = (139, 195, 74)
+theme_color_str = "106, 106, 106"
 
 
 class Dashboard(QMainWindow):
@@ -28,8 +30,8 @@ class Dashboard(QMainWindow):
         QMainWindow.__init__(self)
         self.ui = importDashboard()
         self.ui.setupUi(self)
-        qt_material.apply_stylesheet(self, theme="dark_amber.xml")
-        # print(qt_material.list_themes())
+        qt_material.apply_stylesheet(self, theme="dark_lightgreen.xml")
+        print(qt_material.list_themes())
 
         # Remove title bar and add translucent backgrouond
         self.setWindowFlag(Qt.FramelessWindowHint)
@@ -66,6 +68,7 @@ class Dashboard(QMainWindow):
         self.battery()
         self.sysInfo()
         self.activities()
+        self.storage()
         self.show()
 
     """BATTERY INFORMATION"""
@@ -99,7 +102,7 @@ class Dashboard(QMainWindow):
         self.ui.progBattery.rpb_setValue(Battery.percent)
         # 'Line', 'Donet', 'Hybrid1', 'Pizza', 'Pie' and 'Hybrid2'
         self.ui.progBattery.rpb_setBarStyle('Pizza')
-        self.ui.progBattery.rpb_setLineColor((255, 215, 64))
+        self.ui.progBattery.rpb_setLineColor(theme_color_tuple)
         self.ui.progBattery.rpb_setPieColor((100, 100, 100))
         self.ui.progBattery.rpb_setTextColor((50, 50, 50))
         self.ui.progBattery.rpb_setInitialPos('North')
@@ -131,29 +134,27 @@ class Dashboard(QMainWindow):
         self.ui.progCpu.spb_setMinimum((0, 0, 0))
         self.ui.progCpu.spb_setMaximum((totalram, totalram, totalram))
         self.ui.progCpu.spb_setValue((availram, usedram, freeram))
-        print(totalram, availram, usedram, freeram)
-        self.ui.progCpu.spb_lineColor(((255, 215, 64), (255, 255, 255), (255, 215, 64)))
+        self.ui.progCpu.spb_lineColor((theme_color_tuple, (255, 255, 255), theme_color_tuple))
         self.ui.progCpu.spb_setInitialPos(('West', 'West', 'West'))
         self.ui.progCpu.spb_lineCap(('RoundCap', 'SquareCap', 'RoundCap'))
         self.ui.progCpu.spb_lineWidth(15)
         self.ui.progCpu.spb_setPathHidden(True)
         self.ui.progCpu.spb_setGap(25)
 
-
         self.ui.lblCpuCounter.setText(str(cpu_count()))
         self.ui.lblCpuPer.setText(f"{util.cpu_percent()}")
         self.ui.lblCpuCore.setText(str(util.cpu_count(logical=False)))
 
-        
         self.ui.progRam.rpb_setMaximum(100)
         self.ui.progRam.rpb_setValue(availram)
         self.ui.progRam.rpb_setBarStyle('Pizza')
-        self.ui.progRam.rpb_setLineColor((255, 215, 64))
+        self.ui.progRam.rpb_setLineColor(theme_color_tuple)
         self.ui.progRam.rpb_setTextColor((49, 54, 59))
         self.ui.progRam.rpb_setInitialPos('North')
         self.ui.progRam.rpb_setLineWidth(13)
 
     """PROCESSES AND PIDS"""
+
     def createTable(self, row, column, text, tblName):
         tableWidget = QTableWidgetItem()
         getattr(self.ui, tblName).setItem(row, column, tableWidget)
@@ -165,8 +166,6 @@ class Dashboard(QMainWindow):
         Btn.setText(name)
         Btn.setStyleSheet(f"color: {color}")
         self.ui.tblActivities.setCellWidget(row, col, Btn)
-
-
 
     def activities(self):
         for pids in util.pids():
@@ -182,7 +181,7 @@ class Dashboard(QMainWindow):
 
                 self.ui.tblActivities.verticalHeader().setDefaultSectionSize(55)
 
-                self.createTableButton('Suspend', 'rgb(255, 215, 64)', rowPosition, 4)
+                self.createTableButton('Suspend', f'rgb({theme_color_str})', rowPosition, 4)
                 self.createTableButton('Resume', 'rgb(72, 168, 104)', rowPosition, 5)
                 self.createTableButton('Terminate', 'rgb(220, 20, 60)', rowPosition, 6)
                 self.createTableButton('Kill ', 'rgb(255, 255, 255)', rowPosition, 7)
@@ -190,16 +189,65 @@ class Dashboard(QMainWindow):
             except Exception as err:
                 myMsgBox(str(err), 'Table Error', QMessageBox.Warning)
 
+            self.ui.txtActivities.textChanged.connect(self.findName)
+
+    def findName(self):
+        name = self.ui.txtActivities.text().lower()
+        for row in range(self.ui.tblActivities.rowCount()):
+            item = self.ui.tblActivities.item(row, 1)
+            id = self.ui.tblActivities.item(row, 0)
+
+            # If search is not in the item, do not hide the row
+            self.ui.tblActivities.setRowHidden(row, name not in item.text().lower())
+
+    '''SYSTEM INFORMATION'''
+
     def sysInfo(self):
         self.ui.lblSysDate.setText(datetime.now().strftime("%A, %B the %d, %Y"))
         self.ui.lblSysTime.setText(datetime.now().strftime("%H:%M:%S"))
-        
+
         self.ui.lblSysMachine.setText(platform.machine())
         self.ui.lblSysPlatform.setText(platform.platform())
         self.ui.lblSysVersion.setText(platform.version())
         self.ui.lblSysInfo.setText(platform.system())
         self.ui.lblSysProc.setText(platform.processor())
 
+    '''STORAGE INFORMATION'''
+
+    def storage(self):
+        div = pow(1024, 3)
+        stores = util.disk_partitions(False)
+        x = 0
+        # Device, Mount point, OPTS, Max file, Max Path, Total used & free storage
+        for store in stores:
+            rowPosition = self.ui.tblStorage.rowCount()
+            self.ui.tblStorage.insertRow(rowPosition)
+
+            self.createTable(rowPosition, 0, store.device, "tblStorage")
+            self.createTable(rowPosition, 1, store.mountpoint, "tblStorage")
+            self.createTable(rowPosition, 2, store.fstype, "tblStorage")
+            self.createTable(rowPosition, 3, str(store.opts), 'tblStorage')
+
+            if sys.platform.find('linux') >= 0:
+                self.createTable(rowPosition, 4, str(store.maxpath), 'tblStorage')
+                self.createTable(rowPosition, 5, str(store.maxfile), 'tblStorage')
+            else:
+                self.createTable(rowPosition, 4, f"Not Available", 'tblStorage')
+                self.createTable(rowPosition, 5, f"Not Available", 'tblStorage')
+
+            try:
+                disk = util.disk_usage(store.mountpoint)
+                self.createTable(rowPosition, 6, f"{disk.total / div:.2f} GB", 'tblStorage')
+                self.createTable(rowPosition, 7, f"{disk.used / div:.2f} GB", 'tblStorage')
+                self.createTable(rowPosition, 8, f"{disk.free / div:.2f} GB", 'tblStorage')
+
+                fulldisk = (disk.used / disk.total) * 100
+                progBar = QProgressBar(self.ui.tblStorage)
+                progBar.setObjectName(u"progStorage")
+                progBar.setValue(fulldisk)
+                self.ui.tblStorage.setCellWidget(rowPosition, 9, progBar)
+            except Exception as err:
+                myMsgBox(str(err), 'Disk Error')
 
 
     # Function to convert seconds to hours
@@ -213,7 +261,7 @@ class Dashboard(QMainWindow):
             if btn.objectName() != self.sender().objectName():
                 btn.setStyleSheet("background-color: none;")
 
-        self.sender().setStyleSheet("background-color: #FFD740")
+        self.sender().setStyleSheet(f"background-color: rgb{theme_color_tuple}")
 
     def buttonHandle(self):
         self.ui.btnClose.clicked.connect(self.close)
