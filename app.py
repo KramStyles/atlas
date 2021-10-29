@@ -306,11 +306,12 @@ class Dashboard(QMainWindow):
             self.ui.tblNetConn.insertRow(rowPos)
 
             self.createTable(rowPos, 0, str(net.fd), 'tblNetConn')
-            self.createTable(rowPos, 0, str(net.fd), 'tblNetConn')
-            self.createTable(rowPos, 0, str(net.fd), 'tblNetConn')
-            self.createTable(rowPos, 0, str(net.fd), 'tblNetConn')
-            self.createTable(rowPos, 0, str(net.fd), 'tblNetConn')
-            self.createTable(rowPos, 0, str(net.fd), 'tblNetConn')
+            self.createTable(rowPos, 1, str(net.family), 'tblNetConn')
+            self.createTable(rowPos, 2, str(net.type), 'tblNetConn')
+            self.createTable(rowPos, 3, str(net.laddr), 'tblNetConn')
+            self.createTable(rowPos, 4, str(net.raddr), 'tblNetConn')
+            self.createTable(rowPos, 5, str(net.status), 'tblNetConn')
+            self.createTable(rowPos, 6, str(net.pid), 'tblNetConn')
 
         # FOR NET COUNTERS
         NetCount = util.net_io_counters(pernic=True)
