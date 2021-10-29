@@ -507,7 +507,7 @@
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>6</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="stkBattery">
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -670,38 +670,6 @@ font-size: 16px;</string>
                  <enum>QFrame::Raised</enum>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_2">
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_13">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>poppins</family>
-                     <pointsize>-1</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>CPU Per</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QLabel" name="lblCpuPer">
-                   <property name="font">
-                    <font>
-                     <family>poppins</family>
-                     <pointsize>-1</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Null</string>
-                   </property>
-                  </widget>
-                 </item>
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_12">
                    <property name="maximumSize">
@@ -734,7 +702,7 @@ font-size: 16px;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="0">
+                 <item row="1" column="0">
                   <widget class="QLabel" name="label_14">
                    <property name="maximumSize">
                     <size>
@@ -753,7 +721,7 @@ font-size: 16px;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="1">
+                 <item row="1" column="1">
                   <widget class="QLabel" name="lblCpuCore">
                    <property name="font">
                     <font>
@@ -766,7 +734,7 @@ font-size: 16px;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="2">
+                 <item row="2" column="0">
                   <widget class="roundProgressBar" name="progRam" native="true">
                    <property name="minimumSize">
                     <size>

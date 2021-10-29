@@ -198,7 +198,7 @@ class Dashboard(QMainWindow):
 
             self.ui.progCpu.spb_setMinimum((0, 0, 0))
             self.ui.progCpu.spb_setMaximum((totalram, totalram, totalram))
-            self.ui.progCpu.spb_setValue((availram, usedram, freeram))
+            self.ui.progCpu.spb_setValue((usedram, usedram, freeram))
             self.ui.progCpu.spb_lineColor((theme_color_tuple, (255, 255, 255), theme_color_tuple))
             self.ui.progCpu.spb_setInitialPos(('West', 'West', 'West'))
             self.ui.progCpu.spb_lineCap(('RoundCap', 'SquareCap', 'RoundCap'))
@@ -207,18 +207,17 @@ class Dashboard(QMainWindow):
             self.ui.progCpu.spb_setGap(25)
 
             self.ui.lblCpuCounter.setText(str(cpu_count()))
-            self.ui.lblCpuPer.setText(f"{util.cpu_percent()}")
             self.ui.lblCpuCore.setText(str(util.cpu_count(logical=False)))
 
             self.ui.progRam.rpb_setMaximum(100)
-            self.ui.progRam.rpb_setValue(availram)
+            self.ui.progRam.rpb_setValue(util.cpu_percent())
             self.ui.progRam.rpb_setBarStyle('Pizza')
             self.ui.progRam.rpb_setLineColor(theme_color_tuple)
             self.ui.progRam.rpb_setTextColor((49, 54, 59))
             self.ui.progRam.rpb_setInitialPos('North')
             self.ui.progRam.rpb_setLineWidth(13)
 
-            sleep(1)
+            sleep(0.5)
 
     """PROCESSES AND PIDS"""
 
