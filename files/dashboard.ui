@@ -507,7 +507,7 @@
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>4</number>
+             <number>6</number>
             </property>
             <widget class="QWidget" name="stkBattery">
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1503,7 +1503,7 @@ font-size: 16px;</string>
                </widget>
               </item>
               <item>
-               <widget class="QTableWidget" name="tableWidget">
+               <widget class="QTableWidget" name="tblSensors">
                 <column>
                  <property name="text">
                   <string>Sensor</string>
@@ -1550,8 +1550,8 @@ font-size: 16px;</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>241</width>
-                   <height>879</height>
+                   <width>886</width>
+                   <height>996</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -1571,7 +1571,13 @@ font-size: 16px;</string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QTreeWidget" name="treeWidget_3">
+                   <widget class="QTableWidget" name="tblNetStats">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>200</height>
+                     </size>
+                    </property>
                     <column>
                      <property name="text">
                       <string/>
@@ -1630,7 +1636,7 @@ font-size: 16px;</string>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QTableWidget" name="tableWidget_2">
+                      <widget class="QTableWidget" name="tblNetCounters">
                        <property name="minimumSize">
                         <size>
                          <width>0</width>
@@ -1718,7 +1724,7 @@ font-size: 16px;</string>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QTableWidget" name="tableWidget_3">
+                      <widget class="QTableWidget" name="tblNetAddr">
                        <property name="minimumSize">
                         <size>
                          <width>0</width>

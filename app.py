@@ -31,7 +31,7 @@ class Dashboard(QMainWindow):
         self.ui = importDashboard()
         self.ui.setupUi(self)
         qt_material.apply_stylesheet(self, theme="dark_lightgreen.xml")
-        print(qt_material.list_themes())
+        # print(qt_material.list_themes())
 
         # Remove title bar and add translucent backgrouond
         self.setWindowFlag(Qt.FramelessWindowHint)
@@ -68,8 +68,10 @@ class Dashboard(QMainWindow):
         self.battery()
         self.sysInfo()
         self.activities()
-        self.storage()
         self.show()
+        self.storage()
+        self.sensors()
+        self.network()
 
     """BATTERY INFORMATION"""
 
@@ -247,7 +249,73 @@ class Dashboard(QMainWindow):
                 progBar.setValue(fulldisk)
                 self.ui.tblStorage.setCellWidget(rowPosition, 9, progBar)
             except Exception as err:
-                myMsgBox(str(err), 'Disk Error')
+                # myMsgBox(str(err), 'Disk Error')
+                print(err)
+
+    ''' SENSORS FOR LINUX'''
+    def sensors(self):
+        if sys.platform.find('linux') >= 0:
+            try:
+                for temp in util.sensors_temperatures():
+                    for tmp in util.sensors_temperatures()[temp]:
+                        rowPos = self.ui.tblSensors.rowCount()
+                        self.ui.tblSensors.insertRow(rowPos)
+
+                        self.createTable(rowPos, 0, temp, 'tblSensors')
+                        self.createTable(rowPos, 1, tmp.label, 'tblSensors')
+                        self.createTable(rowPos, 2, str(tmp.current), 'tblSensors')
+                        self.createTable(rowPos, 3, str(tmp.high), 'tblSensors')
+                        self.createTable(rowPos, 4, str(tmp.critical), 'tblSensors')
+
+                        per_tmp = (tmp.current / tmp.high) * 100
+                        progBar = QProgressBar(self.ui.tblSensors)
+                        progBar.objectName(u"progSensors")
+                        progBar.setValue(per_tmp)
+                        self.ui.tblSensors.setCellWidget(rowPos, 5, progBar)
+            except Exception as err:
+                myMsgBox(str(err), 'Sensory Error')
+        else:
+            rowPos = self.ui.tblSensors.rowCount()
+            self.ui.tblSensors.insertRow(rowPos)
+
+            self.createTable(rowPos, 0, 'Unavailable', 'tblSensors')
+            self.createTable(rowPos, 1, 'Null', 'tblSensors')
+            self.createTable(rowPos, 2, 'Null', 'tblSensors')
+            self.createTable(rowPos, 3, 'Null', 'tblSensors')
+            self.createTable(rowPos, 4, 'Null', 'tblSensors')
+            self.createTable(rowPos, 5, 'Null', 'tblSensors')
+
+    '''NETWORK'''
+    def network(self):
+        # For Netstats
+        NetStats = util.net_if_stats()
+        for net in NetStats:
+            rowPos = self.ui.tblNetStats.rowCount()
+            self.ui.tblNetStats.insertRow(rowPos)
+
+            self.createTable(rowPos, 0, net, 'tblNetStats')
+            self.createTable(rowPos, 1, f"{NetStats[net].isup}", 'tblNetStats')
+            self.createTable(rowPos, 2, f"{NetStats[net].duplex}", 'tblNetStats')
+            self.createTable(rowPos, 3, f"{NetStats[net].speed}", 'tblNetStats')
+            self.createTable(rowPos, 4, f"{NetStats[net].mtu}", 'tblNetStats')
+
+        # FOR NET COUNTERS
+        NetCount = util.net_io_counters(pernic=True)
+        for net in NetCount:
+            rowPos = self.ui.tblNetCounters.rowCount()
+            self.ui.tblNetCounters.insertRow(rowPos)
+
+            self.createTable(rowPos, 0, str(net), 'tblNetCounters')
+            self.createTable(rowPos, 1, f"{NetCount[net].bytes_sent}", 'tblNetCounters')
+            self.createTable(rowPos, 2, f"{NetCount[net].bytes_recv}", 'tblNetCounters')
+            self.createTable(rowPos, 3, f"{NetCount[net].packets_sent}", 'tblNetCounters')
+            self.createTable(rowPos, 4, f"{NetCount[net].packets_recv}", 'tblNetCounters')
+            self.createTable(rowPos, 5, f"{NetCount[net].errin}", 'tblNetCounters')
+            self.createTable(rowPos, 6, f"{NetCount[net].errout}", 'tblNetCounters')
+            self.createTable(rowPos, 7, f"{NetCount[net].dropin}", 'tblNetCounters')
+            self.createTable(rowPos, 8, f"{NetCount[net].dropout}", 'tblNetCounters')
+
+
 
 
     # Function to convert seconds to hours
@@ -311,18 +379,6 @@ class Dashboard(QMainWindow):
         self.animate.setEasingCurve(QEasingCurve.InOutQuart)
         self.animate.start()
 
-
-# class MainWindow(QMainWindow):
-#     def __init__(self):
-#         try:
-#             super(MainWindow, self).__init__()
-#             self.ui = importMain()
-#             self.ui.setupUi(self)
-#
-#             QTimer.singleShot(2000, lambda: self.ui.lblTitle.setText("<b>Coming </b>Soon"))
-#             QTimer.singleShot(2000, lambda: self.setStyleSheet("background: #333; color: #eee;"))
-#         except Exception as err:
-#             print(err)
 
 
 class Splash(QMainWindow):
