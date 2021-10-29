@@ -8,7 +8,7 @@ from sys import platform
 
 from PySide2.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip, QPushButton, QTableWidgetItem, QMessageBox, QProgressBar
 from PySide2.QtGui import QColor, QIcon, QMouseEvent
-from PySide2.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve, QObject, Signal, QRunnable, Slot
+from PySide2.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve, QObject, Signal, QRunnable, Slot, QThreadPool
 from multiprocessing import cpu_count
 from desk_functions import myMsgBox
 
@@ -50,9 +50,12 @@ class Runner(QRunnable):
             result = self.fn(*self.args, **self.kwargs)
         except Exception as err:
             traceback.print_exc()
-            exctype, val = sys.exc_info()[:2]
-            self.signals.err.emit((exctype, val, traceback.format_exc()))
-
+            exc_type, val = sys.exc_info()[:2]
+            self.signals.err.emit((exc_type, val, traceback.format_exc()))
+        else:
+            self.signals.err.emit(result)
+        finally:
+            self.signals.finished.emit()
 
 
 class Dashboard(QMainWindow):
@@ -95,96 +98,127 @@ class Dashboard(QMainWindow):
         for btn in self.ui.frmMenu.findChildren(QPushButton):
             btn.clicked.connect(self.applyBtnStyle)
 
+        self.thread_pool = QThreadPool()
         self.show()
 
-        self.battery()
         self.sysInfo()
         self.activities()
         self.storage()
         self.sensors()
         self.network()
+        self.util_thread()
+
+    def util_thread(self):
+        work = Runner(self.cpu)
+        work.signals.result.connect(self.print_output)
+        work.signals.finished.connect(self.thread_complete)
+        work.signals.progress.connect(self.progress_fn)
+
+        self.thread_pool.start(work)
+
+        work_battery = Runner(self.battery)
+        work_battery.signals.result.connect(self.print_output)
+        work_battery.signals.finished.connect(self.thread_complete)
+        work_battery.signals.progress.connect(self.progress_fn)
+
+        self.thread_pool.start(work_battery)
+
+    def print_output(self, s):
+        print(s)
+
+    def thread_complete(self):
+        print('Thread Done')
+
+    def progress_fn(self, n):
+        print("%d%% done" % n)
 
     """BATTERY INFORMATION"""
 
-    def battery(self):
-        Battery = util.sensors_battery()
-        if not hasattr(util, "sensors battery"):
-            self.ui.lblBatteryStatus.setText("Platform not supported!")
+    def battery(self, progress_callback):
+        while True:
+            Battery = util.sensors_battery()
+            if not hasattr(util, "sensors battery"):
+                self.ui.lblBatteryStatus.setText("Platform not supported!")
 
-        if Battery is None:
-            self.ui.lblBatteryStatus.setText("Battery not found")
+            if Battery is None:
+                self.ui.lblBatteryStatus.setText("Battery not found")
 
-        if Battery.power_plugged:
-            self.ui.lblBatteryCharge.setText(f"{round(Battery.percent, 2)}%")
-            self.ui.lblBatteryTimeLeft.setText("Null")
-            if Battery.percent < 100:
-                self.ui.lblBatteryStatus.setText('Battery Charging!')
+            if Battery.power_plugged:
+                self.ui.lblBatteryCharge.setText(f"{round(Battery.percent, 2)}%")
+                self.ui.lblBatteryTimeLeft.setText("Null")
+                if Battery.percent < 100:
+                    self.ui.lblBatteryStatus.setText('Battery Charging!')
+                else:
+                    self.ui.lblBatteryStatus.setText('Battery Charged Fully!')
+                self.ui.lblBatteryPlugged.setText('Yes')
             else:
-                self.ui.lblBatteryStatus.setText('Battery Charged Fully!')
-            self.ui.lblBatteryPlugged.setText('Yes')
-        else:
-            self.ui.lblBatteryPlugged.setText('No')
-            self.ui.lblBatteryStatus.setText(f"{round(Battery.percent, 2)}%")
-            self.ui.lblBatteryTimeLeft.setText(self.secsToHours(Battery.secsleft))
-            if Battery.percent < 100:
-                self.ui.lblBatteryStatus.setText('Battery Discharging')
-            else:
-                self.ui.lblBatteryStatus.setText('Battery Full')
+                self.ui.lblBatteryPlugged.setText('No')
+                self.ui.lblBatteryStatus.setText(f"{round(Battery.percent, 2)}%")
+                self.ui.lblBatteryTimeLeft.setText(self.secsToHours(Battery.secsleft))
+                if Battery.percent < 100:
+                    self.ui.lblBatteryStatus.setText('Battery Discharging')
+                else:
+                    self.ui.lblBatteryStatus.setText('Battery Full')
 
-        self.ui.progBattery.rpb_setMaximum(100)
-        self.ui.progBattery.rpb_setValue(Battery.percent)
-        # 'Line', 'Donet', 'Hybrid1', 'Pizza', 'Pie' and 'Hybrid2'
-        self.ui.progBattery.rpb_setBarStyle('Pizza')
-        self.ui.progBattery.rpb_setLineColor(theme_color_tuple)
-        self.ui.progBattery.rpb_setPieColor((100, 100, 100))
-        self.ui.progBattery.rpb_setTextColor((50, 50, 50))
-        self.ui.progBattery.rpb_setInitialPos('North')
-        self.ui.progBattery.rpb_setTextFormat('Percentage')
-        self.ui.progBattery.rpb_setLineWidth(15)
-        self.ui.progBattery.rpb_setPathWidth(15)
-        self.ui.progBattery.rpb_setLineCap('SquareCap')
-        self.ui.progBattery.rpb_setLineStyle('DotLine')
+            self.ui.progBattery.rpb_setMaximum(100)
+            self.ui.progBattery.rpb_setValue(Battery.percent)
+            # 'Line', 'Donet', 'Hybrid1', 'Pizza', 'Pie' and 'Hybrid2'
+            self.ui.progBattery.rpb_setBarStyle('Pizza')
+            self.ui.progBattery.rpb_setLineColor(theme_color_tuple)
+            self.ui.progBattery.rpb_setPieColor((100, 100, 100))
+            self.ui.progBattery.rpb_setTextColor((50, 50, 50))
+            self.ui.progBattery.rpb_setInitialPos('North')
+            self.ui.progBattery.rpb_setTextFormat('Percentage')
+            self.ui.progBattery.rpb_setLineWidth(15)
+            self.ui.progBattery.rpb_setPathWidth(15)
+            self.ui.progBattery.rpb_setLineCap('SquareCap')
+            self.ui.progBattery.rpb_setLineStyle('DotLine')
+
+            sleep(1)
 
     """RAM AND SYSTEM INFORMATION"""
 
-    def cpu(self):
-        div = pow(1024, 3)
-        totalram = util.virtual_memory()[0] / div
-        self.ui.lblRamTotal.setText(f"{totalram:.4f}GB")
+    def cpu(self, progress_callback):
+        while True:
+            div = pow(1024, 3)
+            totalram = util.virtual_memory()[0] / div
+            self.ui.lblRamTotal.setText(f"{totalram:.4f}GB")
 
-        availram = util.virtual_memory()[1] / div
-        self.ui.lblRamAvail.setText(f"{availram:.4f}GB")
+            availram = util.virtual_memory()[1] / div
+            self.ui.lblRamAvail.setText(f"{availram:.4f}GB")
 
-        usedram = util.virtual_memory()[3] / div
-        self.ui.lblRamUsed.setText(f"{usedram:.4f}GB")
+            usedram = util.virtual_memory()[3] / div
+            self.ui.lblRamUsed.setText(f"{usedram:.4f}GB")
 
-        freeram = util.virtual_memory()[4] / div
-        self.ui.lblRamFree.setText(f"{freeram:.4f}GB")
+            freeram = util.virtual_memory()[4] / div
+            self.ui.lblRamFree.setText(f"{freeram:.4f}GB")
 
-        availram = util.virtual_memory()[2]
-        self.ui.lblRamUsage.setText(f"{availram:.1f}%")
+            availram = util.virtual_memory()[2]
+            self.ui.lblRamUsage.setText(f"{availram:.1f}%")
 
-        self.ui.progCpu.spb_setMinimum((0, 0, 0))
-        self.ui.progCpu.spb_setMaximum((totalram, totalram, totalram))
-        self.ui.progCpu.spb_setValue((availram, usedram, freeram))
-        self.ui.progCpu.spb_lineColor((theme_color_tuple, (255, 255, 255), theme_color_tuple))
-        self.ui.progCpu.spb_setInitialPos(('West', 'West', 'West'))
-        self.ui.progCpu.spb_lineCap(('RoundCap', 'SquareCap', 'RoundCap'))
-        self.ui.progCpu.spb_lineWidth(15)
-        self.ui.progCpu.spb_setPathHidden(True)
-        self.ui.progCpu.spb_setGap(25)
+            self.ui.progCpu.spb_setMinimum((0, 0, 0))
+            self.ui.progCpu.spb_setMaximum((totalram, totalram, totalram))
+            self.ui.progCpu.spb_setValue((availram, usedram, freeram))
+            self.ui.progCpu.spb_lineColor((theme_color_tuple, (255, 255, 255), theme_color_tuple))
+            self.ui.progCpu.spb_setInitialPos(('West', 'West', 'West'))
+            self.ui.progCpu.spb_lineCap(('RoundCap', 'SquareCap', 'RoundCap'))
+            self.ui.progCpu.spb_lineWidth(15)
+            self.ui.progCpu.spb_setPathHidden(True)
+            self.ui.progCpu.spb_setGap(25)
 
-        self.ui.lblCpuCounter.setText(str(cpu_count()))
-        self.ui.lblCpuPer.setText(f"{util.cpu_percent()}")
-        self.ui.lblCpuCore.setText(str(util.cpu_count(logical=False)))
+            self.ui.lblCpuCounter.setText(str(cpu_count()))
+            self.ui.lblCpuPer.setText(f"{util.cpu_percent()}")
+            self.ui.lblCpuCore.setText(str(util.cpu_count(logical=False)))
 
-        self.ui.progRam.rpb_setMaximum(100)
-        self.ui.progRam.rpb_setValue(availram)
-        self.ui.progRam.rpb_setBarStyle('Pizza')
-        self.ui.progRam.rpb_setLineColor(theme_color_tuple)
-        self.ui.progRam.rpb_setTextColor((49, 54, 59))
-        self.ui.progRam.rpb_setInitialPos('North')
-        self.ui.progRam.rpb_setLineWidth(13)
+            self.ui.progRam.rpb_setMaximum(100)
+            self.ui.progRam.rpb_setValue(availram)
+            self.ui.progRam.rpb_setBarStyle('Pizza')
+            self.ui.progRam.rpb_setLineColor(theme_color_tuple)
+            self.ui.progRam.rpb_setTextColor((49, 54, 59))
+            self.ui.progRam.rpb_setInitialPos('North')
+            self.ui.progRam.rpb_setLineWidth(13)
+
+            sleep(1)
 
     """PROCESSES AND PIDS"""
 
@@ -417,10 +451,6 @@ class Dashboard(QMainWindow):
 
     def stackSetter(self, Button, Stack, Queue=None):
         Button.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(Stack))
-        if Queue == 1:
-            self.battery()
-        elif Queue == 2:
-            self.cpu()
 
     def mousePressEvent(self, a0: QMouseEvent) -> None:
         self.clickPosition = a0.globalPos()
