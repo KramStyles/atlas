@@ -1,4 +1,5 @@
 import sys, os
+import traceback
 from sys import platform
 
 # from PyQt5.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve
@@ -7,7 +8,7 @@ from sys import platform
 
 from PySide2.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip, QPushButton, QTableWidgetItem, QMessageBox, QProgressBar
 from PySide2.QtGui import QColor, QIcon, QMouseEvent
-from PySide2.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve
+from PySide2.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve, QObject, Signal, QRunnable, Slot
 from multiprocessing import cpu_count
 from desk_functions import myMsgBox
 
@@ -18,11 +19,40 @@ import platform
 from splash import Ui_MainWindow as importSplash
 from dashboard import Ui_MainWindow as importDashboard
 from datetime import date, datetime
+from time import sleep
 
 # Global Variables
 counter = 0
 theme_color_tuple = (139, 195, 74)
 theme_color_str = "106, 106, 106"
+
+
+class Work(QObject):
+    progress = Signal(int)
+    result = Signal(object)
+    err = Signal(tuple)
+    finished = Signal()
+
+
+class Runner(QRunnable):
+    def __init__(self, fn, *args, **kwargs):
+        super(Runner, self).__init__()
+
+        self.fn = fn
+        self.args = args
+        self.kwargs = kwargs
+        self.signals = Work()
+        self.kwargs['progress_callback'] = self.signals.progress
+
+    @Slot()
+    def run(self) -> None:
+        try:
+            result = self.fn(*self.args, **self.kwargs)
+        except Exception as err:
+            traceback.print_exc()
+            exctype, val = sys.exc_info()[:2]
+            self.signals.err.emit((exctype, val, traceback.format_exc()))
+
 
 
 class Dashboard(QMainWindow):
@@ -65,10 +95,11 @@ class Dashboard(QMainWindow):
         for btn in self.ui.frmMenu.findChildren(QPushButton):
             btn.clicked.connect(self.applyBtnStyle)
 
+        self.show()
+
         self.battery()
         self.sysInfo()
         self.activities()
-        self.show()
         self.storage()
         self.sensors()
         self.network()
@@ -253,6 +284,7 @@ class Dashboard(QMainWindow):
                 print(err)
 
     ''' SENSORS FOR LINUX'''
+
     def sensors(self):
         if sys.platform.find('linux') >= 0:
             try:
@@ -286,6 +318,7 @@ class Dashboard(QMainWindow):
             self.createTable(rowPos, 5, 'Null', 'tblSensors')
 
     '''NETWORK'''
+
     def network(self):
         # For Netstats
         NetStats = util.net_if_stats()
@@ -343,10 +376,6 @@ class Dashboard(QMainWindow):
                 self.createTable(rowPos, 3, str(addr.netmask), 'tblNetAddr')
                 self.createTable(rowPos, 4, str(addr.broadcast), 'tblNetAddr')
                 self.createTable(rowPos, 5, str(addr.ptp), 'tblNetAddr')
-
-
-
-
 
     # Function to convert seconds to hours
     def secsToHours(self, secs):
@@ -408,7 +437,6 @@ class Dashboard(QMainWindow):
         self.animate.setEndValue(nmWidth)
         self.animate.setEasingCurve(QEasingCurve.InOutQuart)
         self.animate.start()
-
 
 
 class Splash(QMainWindow):

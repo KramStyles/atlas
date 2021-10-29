@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1076</width>
-    <height>744</height>
+    <width>1200</width>
+    <height>850</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1549,9 +1549,9 @@ font-size: 16px;</string>
                  <property name="geometry">
                   <rect>
                    <x>0</x>
-                   <y>-298</y>
-                   <width>886</width>
-                   <height>996</height>
+                   <y>-752</y>
+                   <width>1010</width>
+                   <height>1402</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -1575,7 +1575,7 @@ font-size: 16px;</string>
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
-                      <height>200</height>
+                      <height>300</height>
                      </size>
                     </property>
                     <column>
@@ -1610,7 +1610,7 @@ font-size: 16px;</string>
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
-                      <height>200</height>
+                      <height>0</height>
                      </size>
                     </property>
                     <property name="frameShape">
@@ -1640,7 +1640,7 @@ font-size: 16px;</string>
                        <property name="minimumSize">
                         <size>
                          <width>0</width>
-                         <height>200</height>
+                         <height>300</height>
                         </size>
                        </property>
                        <column>
@@ -1728,7 +1728,7 @@ font-size: 16px;</string>
                        <property name="minimumSize">
                         <size>
                          <width>0</width>
-                         <height>200</height>
+                         <height>300</height>
                         </size>
                        </property>
                        <column>
@@ -1792,7 +1792,7 @@ font-size: 16px;</string>
                        <property name="minimumSize">
                         <size>
                          <width>0</width>
-                         <height>200</height>
+                         <height>0</height>
                         </size>
                        </property>
                        <property name="frameShape">
@@ -1824,6 +1824,12 @@ font-size: 16px;</string>
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>300</height>
+                           </size>
                           </property>
                           <column>
                            <property name="text">
