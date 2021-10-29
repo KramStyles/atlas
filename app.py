@@ -299,6 +299,19 @@ class Dashboard(QMainWindow):
             self.createTable(rowPos, 3, f"{NetStats[net].speed}", 'tblNetStats')
             self.createTable(rowPos, 4, f"{NetStats[net].mtu}", 'tblNetStats')
 
+        # NET CONNECTIONS
+
+        for net in util.net_connections():
+            rowPos = self.ui.tblNetConn.rowCount()
+            self.ui.tblNetConn.insertRow(rowPos)
+
+            self.createTable(rowPos, 0, str(net.fd), 'tblNetConn')
+            self.createTable(rowPos, 0, str(net.fd), 'tblNetConn')
+            self.createTable(rowPos, 0, str(net.fd), 'tblNetConn')
+            self.createTable(rowPos, 0, str(net.fd), 'tblNetConn')
+            self.createTable(rowPos, 0, str(net.fd), 'tblNetConn')
+            self.createTable(rowPos, 0, str(net.fd), 'tblNetConn')
+
         # FOR NET COUNTERS
         NetCount = util.net_io_counters(pernic=True)
         for net in NetCount:
@@ -314,6 +327,22 @@ class Dashboard(QMainWindow):
             self.createTable(rowPos, 6, f"{NetCount[net].errout}", 'tblNetCounters')
             self.createTable(rowPos, 7, f"{NetCount[net].dropin}", 'tblNetCounters')
             self.createTable(rowPos, 8, f"{NetCount[net].dropout}", 'tblNetCounters')
+
+        # NET ADDRESS
+
+        NetAddr = util.net_if_addrs()
+        for net in NetAddr:
+            for addr in NetAddr[net]:
+                rowPos = self.ui.tblNetAddr.rowCount()
+                self.ui.tblNetAddr.insertRow(rowPos)
+
+                self.createTable(rowPos, 0, str(net), 'tblNetAddr')
+                self.createTable(rowPos, 1, str(addr.family), 'tblNetAddr')
+                self.createTable(rowPos, 2, str(addr.address), 'tblNetAddr')
+                self.createTable(rowPos, 3, str(addr.netmask), 'tblNetAddr')
+                self.createTable(rowPos, 4, str(addr.broadcast), 'tblNetAddr')
+                self.createTable(rowPos, 5, str(addr.ptp), 'tblNetAddr')
+
 
 
 
