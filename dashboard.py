@@ -763,7 +763,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, -752, 1010, 1402))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 241, 1402))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_13 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_13.setObjectName("verticalLayout_13")
@@ -953,9 +953,10 @@ class Ui_MainWindow(object):
         self.frame_2.setObjectName("frame_2")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.frame_2)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.label_4 = QtWidgets.QLabel(self.frame_2)
-        self.label_4.setObjectName("label_4")
-        self.verticalLayout_3.addWidget(self.label_4, 0, QtCore.Qt.AlignVCenter)
+        self.chkTray = QtWidgets.QCheckBox(self.frame_2)
+        self.chkTray.setStyleSheet("font-family: montserrat;")
+        self.chkTray.setObjectName("chkTray")
+        self.verticalLayout_3.addWidget(self.chkTray)
         self.horizontalLayout_5.addWidget(self.frame_2, 0, QtCore.Qt.AlignRight|QtCore.Qt.AlignBottom)
         self.frmSizeGrip = QtWidgets.QFrame(self.frmFooter)
         self.frmSizeGrip.setMinimumSize(QtCore.QSize(15, 15))
@@ -1128,8 +1129,8 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Status"))
         item = self.tblNetConn.horizontalHeaderItem(6)
         item.setText(_translate("MainWindow", "PID"))
-        self.label_3.setText(_translate("MainWindow", "Version 1.0 Copyright"))
-        self.label_4.setText(_translate("MainWindow", "?"))
+        self.label_3.setText(_translate("MainWindow", "Version 1.0 Copyright Karm Designs"))
+        self.chkTray.setText(_translate("MainWindow", "Send to Tray"))
 from PySide2extn.RoundProgressBar import roundProgressBar
 from PySide2extn.SpiralProgressBar import spiralProgressBar
 import icons_rc

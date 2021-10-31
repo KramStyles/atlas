@@ -1,30 +1,45 @@
 import sys, os
 import traceback
-from sys import platform
-
-# from PyQt5.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve
-# from PyQt5.QtGui import QColor, QIcon, QMouseEvent
-# from PyQt5.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip
 
 from PySide2.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip, QPushButton, QTableWidgetItem, QMessageBox, QProgressBar
 from PySide2.QtGui import QColor, QIcon, QMouseEvent
 from PySide2.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve, QObject, Signal, QRunnable, Slot, QThreadPool
+
+from PyQt5.QtWidgets import QApplication as Q2App, QSystemTrayIcon, QMenu, QAction
+from PyQt5.QtGui import QIcon as Q2Icon
+
 from multiprocessing import cpu_count
 from desk_functions import myMsgBox
+from sys import platform
+from datetime import date, datetime
+from time import sleep
 
-import qt_material
 import psutil as util
 import platform
 
 from splash import Ui_MainWindow as importSplash
 from dashboard import Ui_MainWindow as importDashboard
-from datetime import date, datetime
-from time import sleep
+import qt_material
 
 # Global Variables
 counter = 0
 theme_color_tuple = (139, 195, 74)
 theme_color_str = "106, 106, 106"
+
+
+# class SystemTray(QSystemTrayIcon):
+#     def __init__(self, icon, parent=None):
+#         super(SystemTray, self).__init__(icon, parent)
+#         self.setToolTip("Atlas!")
+#         menu = QMenu(parent)
+#         restoreApp = menu.addAction('Maximize App')
+#         restoreApp.setIcon(QIcon("files/feather/cpu.svg"))
+#         menu.addSeparator()
+#         self.setContextMenu(menu)
+#         self.activated.connect(self.trayActivated)
+#
+#     def trayActivated(self, reason):
+#         pass
 
 
 class Work(QObject):
@@ -428,6 +443,7 @@ class Dashboard(QMainWindow):
         self.ui.btnMinimize.clicked.connect(lambda: self.showMinimized())
         self.ui.btnRestore.clicked.connect(self.showRestore)
         self.ui.btnMenu.clicked.connect(self.animateMenu)
+        self.ui.chkTray.stateChanged.connect(self.sendToTray)
 
         # Show stacked widgets
         # self.ui.btnBattery.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.stkBattery))
@@ -439,6 +455,23 @@ class Dashboard(QMainWindow):
         self.stackSetter(self.ui.btnNetwork, self.ui.stkNetwork)
         self.stackSetter(self.ui.btnSystem, self.ui.stkSystem)
         self.stackSetter(self.ui.btnProcessor, self.ui.stkProcessor, 2)
+
+    def sendToTray(self):
+        app2 = Q2App(sys.argv)
+
+        tray = QSystemTrayIcon(Q2Icon('files/feather/cpu.svg'), parent=app2)
+        tray.setToolTip('Check out my tray')
+        tray.show()
+
+        menu = QMenu()
+
+        restoreAct = menu.addAction('Restore')
+        restoreAct.triggered.connect(self.show)
+        exitAct = menu.addAction('Exit')
+        exitAct.triggered.connect(app.quit)
+
+        tray.setContextMenu(menu)
+        self.hide()
 
     def showRestore(self):
         if self.isMaximized():
@@ -516,5 +549,5 @@ class Splash(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    splash = Splash()
+    splash = Dashboard()
     sys.exit(app.exec_())

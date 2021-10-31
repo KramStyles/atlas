@@ -1517,8 +1517,8 @@ font-size: 16px;</string>
                  <property name="geometry">
                   <rect>
                    <x>0</x>
-                   <y>-752</y>
-                   <width>1010</width>
+                   <y>0</y>
+                   <width>241</width>
                    <height>1402</height>
                   </rect>
                  </property>
@@ -1882,7 +1882,7 @@ font-size: 16px;</string>
              </font>
             </property>
             <property name="text">
-             <string>Version 1.0 Copyright</string>
+             <string>Version 1.0 Copyright Karm Designs</string>
             </property>
            </widget>
           </item>
@@ -1898,10 +1898,13 @@ font-size: 16px;</string>
           <enum>QFrame::Raised</enum>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
-          <item alignment="Qt::AlignVCenter">
-           <widget class="QLabel" name="label_4">
+          <item>
+           <widget class="QCheckBox" name="chkTray">
+            <property name="styleSheet">
+             <string notr="true">font-family: montserrat;</string>
+            </property>
             <property name="text">
-             <string>?</string>
+             <string>Send to Tray</string>
             </property>
            </widget>
           </item>
