@@ -507,7 +507,7 @@
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>1</number>
+             <number>2</number>
             </property>
             <widget class="QWidget" name="stkBattery">
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -537,6 +537,108 @@
                      <height>16777215</height>
                     </size>
                    </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="frmCpuInfo">
+                   <property name="font">
+                    <font>
+                     <family>poppins</family>
+                     <pointsize>-1</pointsize>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">font-family: poppins;
+font-size: 16px;</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_2">
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="label_12">
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>50</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>poppins</family>
+                        <pointsize>-1</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>CPU Counter</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QLabel" name="lblCpuCounter">
+                      <property name="font">
+                       <font>
+                        <family>poppins</family>
+                        <pointsize>-1</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Null</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="label_14">
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>50</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>poppins</family>
+                        <pointsize>-1</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>CPU Main Core</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QLabel" name="lblCpuCore">
+                      <property name="font">
+                       <font>
+                        <family>poppins</family>
+                        <pointsize>-1</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Null</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="roundProgressBar" name="progRam" native="true">
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>200</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>300</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
                   </widget>
                  </item>
                 </layout>
@@ -602,177 +704,35 @@ font-size: 16px;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_31">
-                   <property name="text">
-                    <string>Charge</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QLabel" name="lblBatteryCharge">
-                   <property name="text">
-                    <string>N/A</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1">
-                  <widget class="QLabel" name="lblBatteryTimeLeft">
-                   <property name="text">
-                    <string>N/A</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="1">
-                  <widget class="QLabel" name="lblBatteryPlugged">
-                   <property name="text">
-                    <string>N/A</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0">
+                 <item row="3" column="0">
                   <widget class="QLabel" name="label_32">
                    <property name="text">
                     <string>Time Left</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="3" column="0">
+                 <item row="4" column="1">
+                  <widget class="QLabel" name="lblBatteryPlugged">
+                   <property name="text">
+                    <string>N/A</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="1">
+                  <widget class="QLabel" name="lblBatteryTimeLeft">
+                   <property name="text">
+                    <string>N/A</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="0">
                   <widget class="QLabel" name="label_33">
                    <property name="text">
                     <string>Plugged In</string>
                    </property>
                   </widget>
                  </item>
-                </layout>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-            <widget class="QWidget" name="stkProcessor">
-             <layout class="QVBoxLayout" name="verticalLayout_6">
-              <item alignment="Qt::AlignVCenter">
-               <widget class="QFrame" name="frmCpuInfo">
-                <property name="font">
-                 <font>
-                  <family>poppins</family>
-                  <pointsize>-1</pointsize>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">font-family: poppins;
-font-size: 16px;</string>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_2">
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_12">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>poppins</family>
-                     <pointsize>-1</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>CPU Counter</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="QLabel" name="lblCpuCounter">
-                   <property name="font">
-                    <font>
-                     <family>poppins</family>
-                     <pointsize>-1</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Null</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_14">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>poppins</family>
-                     <pointsize>-1</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>CPU Main Core</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QLabel" name="lblCpuCore">
-                   <property name="font">
-                    <font>
-                     <family>poppins</family>
-                     <pointsize>-1</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Null</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="roundProgressBar" name="progRam" native="true">
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>200</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>300</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignTop">
-               <widget class="QFrame" name="frmRamInfo">
-                <property name="font">
-                 <font>
-                  <family>poppins</family>
-                  <pointsize>-1</pointsize>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">font-family: poppins;
-font-size: 16px;</string>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_3">
-                 <item row="2" column="0">
+                 <item row="0" column="2" rowspan="5">
                   <widget class="QFrame" name="frame_14">
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
@@ -781,8 +741,8 @@ font-size: 16px;</string>
                     <enum>QFrame::Raised</enum>
                    </property>
                    <layout class="QGridLayout" name="gridLayout_6">
-                    <item row="0" column="0">
-                     <widget class="QLabel" name="label_18">
+                    <item row="2" column="0">
+                     <widget class="QLabel" name="label_21">
                       <property name="maximumSize">
                        <size>
                         <width>16777215</width>
@@ -796,11 +756,68 @@ font-size: 16px;</string>
                        </font>
                       </property>
                       <property name="text">
-                       <string>Total RAM</string>
+                       <string>Used</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="0" column="1">
+                    <item row="4" column="2">
+                     <widget class="QLabel" name="lblRamUsage">
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>30</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>poppins</family>
+                        <pointsize>-1</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Null</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="2">
+                     <widget class="QLabel" name="lblRamUsed">
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>30</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>poppins</family>
+                        <pointsize>-1</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Null</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="4" column="0">
+                     <widget class="QLabel" name="label_26">
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>30</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>poppins</family>
+                        <pointsize>-1</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>RAM Usage</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="2">
                      <widget class="QLabel" name="lblRamTotal">
                       <property name="maximumSize">
                        <size>
@@ -838,65 +855,8 @@ font-size: 16px;</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="4" column="0">
-                     <widget class="QLabel" name="label_26">
-                      <property name="maximumSize">
-                       <size>
-                        <width>16777215</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <family>poppins</family>
-                        <pointsize>-1</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>RAM Usage</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="2" column="1">
-                     <widget class="QLabel" name="lblRamUsed">
-                      <property name="maximumSize">
-                       <size>
-                        <width>16777215</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <family>poppins</family>
-                        <pointsize>-1</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>Null</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="2" column="0">
-                     <widget class="QLabel" name="label_21">
-                      <property name="maximumSize">
-                       <size>
-                        <width>16777215</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <family>poppins</family>
-                        <pointsize>-1</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>Used</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="4" column="1">
-                     <widget class="QLabel" name="lblRamUsage">
+                    <item row="1" column="2">
+                     <widget class="QLabel" name="lblRamAvail">
                       <property name="maximumSize">
                        <size>
                         <width>16777215</width>
@@ -933,7 +893,7 @@ font-size: 16px;</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="3" column="1">
+                    <item row="3" column="2">
                      <widget class="QLabel" name="lblRamFree">
                       <property name="maximumSize">
                        <size>
@@ -952,8 +912,8 @@ font-size: 16px;</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="1" column="1">
-                     <widget class="QLabel" name="lblRamAvail">
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="label_18">
                       <property name="maximumSize">
                        <size>
                         <width>16777215</width>
@@ -967,14 +927,28 @@ font-size: 16px;</string>
                        </font>
                       </property>
                       <property name="text">
-                       <string>Null</string>
+                       <string>Total RAM</string>
                       </property>
                      </widget>
                     </item>
                    </layout>
                   </widget>
                  </item>
-                 <item row="2" column="2">
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_31">
+                   <property name="text">
+                    <string>Charge</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QLabel" name="lblBatteryCharge">
+                   <property name="text">
+                    <string>N/A</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="3" rowspan="5">
                   <widget class="spiralProgressBar" name="progCpu" native="true">
                    <property name="minimumSize">
                     <size>
@@ -1001,10 +975,19 @@ font-size: 16px;</string>
               </item>
              </layout>
             </widget>
+            <widget class="QWidget" name="stkProcessor">
+             <layout class="QVBoxLayout" name="verticalLayout_6"/>
+            </widget>
             <widget class="QWidget" name="stkSystem">
              <layout class="QVBoxLayout" name="verticalLayout_8">
               <item>
                <widget class="QFrame" name="frame_4">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>250</height>
+                 </size>
+                </property>
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
                 </property>
@@ -1040,6 +1023,21 @@ font-size: 16px;</string>
                    </property>
                   </widget>
                  </item>
+                 <item row="5" column="0">
+                  <widget class="QLabel" name="label_41">
+                   <property name="font">
+                    <font>
+                     <family>raleway</family>
+                     <pointsize>9</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Platform</string>
+                   </property>
+                  </widget>
+                 </item>
                  <item row="1" column="0">
                   <widget class="QLabel" name="lblSysInfo">
                    <property name="font">
@@ -1068,21 +1066,6 @@ font-size: 16px;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="5" column="0">
-                  <widget class="QLabel" name="label_41">
-                   <property name="font">
-                    <font>
-                     <family>raleway</family>
-                     <pointsize>9</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Platform</string>
-                   </property>
-                  </widget>
-                 </item>
                  <item row="6" column="0">
                   <widget class="QLabel" name="label_42">
                    <property name="font">
@@ -1095,6 +1078,19 @@ font-size: 16px;</string>
                    </property>
                    <property name="text">
                     <string>Date</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="3">
+                  <widget class="QLabel" name="lblSysMachine">
+                   <property name="font">
+                    <font>
+                     <family>raleway</family>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Null</string>
                    </property>
                   </widget>
                  </item>
@@ -1113,8 +1109,8 @@ font-size: 16px;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="3" column="3">
-                  <widget class="QLabel" name="lblSysMachine">
+                 <item row="5" column="1">
+                  <widget class="QLabel" name="lblSysPlatform">
                    <property name="font">
                     <font>
                      <family>raleway</family>
@@ -1123,21 +1119,6 @@ font-size: 16px;</string>
                    </property>
                    <property name="text">
                     <string>Null</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="2">
-                  <widget class="QLabel" name="label_46">
-                   <property name="font">
-                    <font>
-                     <family>raleway</family>
-                     <pointsize>9</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Processor</string>
                    </property>
                   </widget>
                  </item>
@@ -1156,34 +1137,23 @@ font-size: 16px;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="5" column="1">
-                  <widget class="QLabel" name="lblSysPlatform">
+                 <item row="5" column="2">
+                  <widget class="QLabel" name="label_46">
                    <property name="font">
                     <font>
                      <family>raleway</family>
-                     <pointsize>10</pointsize>
+                     <pointsize>9</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
                     </font>
                    </property>
                    <property name="text">
-                    <string>Null</string>
+                    <string>Processor</string>
                    </property>
                   </widget>
                  </item>
                  <item row="6" column="1">
                   <widget class="QLabel" name="lblSysDate">
-                   <property name="font">
-                    <font>
-                     <family>raleway</family>
-                     <pointsize>10</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Null</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="3">
-                  <widget class="QLabel" name="lblSysProc">
                    <property name="font">
                     <font>
                      <family>raleway</family>
@@ -1208,7 +1178,144 @@ font-size: 16px;</string>
                    </property>
                   </widget>
                  </item>
+                 <item row="5" column="3">
+                  <widget class="QLabel" name="lblSysProc">
+                   <property name="font">
+                    <font>
+                     <family>raleway</family>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Null</string>
+                   </property>
+                  </widget>
+                 </item>
                 </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_53">
+                <property name="font">
+                 <font>
+                  <family>raleway</family>
+                  <pointsize>10</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Disk Partition</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QTableWidget" name="tblStorage">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <column>
+                 <property name="text">
+                  <string>Device</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Mount</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Type</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>OPTS</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Max File</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Max Path</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Total</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Used</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Free</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Progress</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_54">
+                <property name="font">
+                 <font>
+                  <family>raleway</family>
+                  <pointsize>10</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Sensors</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QTableWidget" name="tblSensors">
+                <column>
+                 <property name="text">
+                  <string>Sensor</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Label</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Current</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>High</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Critical</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </column>
                </widget>
               </item>
              </layout>
@@ -1381,130 +1488,10 @@ font-size: 16px;</string>
              </layout>
             </widget>
             <widget class="QWidget" name="stkStorage">
-             <layout class="QVBoxLayout" name="verticalLayout_10">
-              <item>
-               <widget class="QLabel" name="label_53">
-                <property name="font">
-                 <font>
-                  <family>raleway</family>
-                  <pointsize>10</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Disk Partition</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QTableWidget" name="tblStorage">
-                <column>
-                 <property name="text">
-                  <string>Device</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Mount</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Type</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>OPTS</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Max File</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Max Path</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Total</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Used</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Free</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Progress</string>
-                 </property>
-                </column>
-               </widget>
-              </item>
-             </layout>
+             <layout class="QVBoxLayout" name="verticalLayout_10"/>
             </widget>
             <widget class="QWidget" name="stkSensors">
-             <layout class="QVBoxLayout" name="verticalLayout_11">
-              <item>
-               <widget class="QLabel" name="label_54">
-                <property name="font">
-                 <font>
-                  <family>raleway</family>
-                  <pointsize>10</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Sensors</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QTableWidget" name="tblSensors">
-                <column>
-                 <property name="text">
-                  <string>Sensor</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Label</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Current</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>High</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Critical</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string/>
-                 </property>
-                </column>
-               </widget>
-              </item>
-             </layout>
+             <layout class="QVBoxLayout" name="verticalLayout_11"/>
             </widget>
             <widget class="QWidget" name="stkNetwork">
              <layout class="QVBoxLayout" name="verticalLayout_12">

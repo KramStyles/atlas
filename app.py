@@ -1,12 +1,10 @@
 import sys, os
 import traceback
 
-from PySide2.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip, QPushButton, QTableWidgetItem, QMessageBox, QProgressBar
+from PySide2.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect, QSizeGrip, QPushButton, QTableWidgetItem, QMessageBox, QProgressBar, QSystemTrayIcon, QMenu, QAction
 from PySide2.QtGui import QColor, QIcon, QMouseEvent
 from PySide2.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve, QObject, Signal, QRunnable, Slot, QThreadPool
 
-from PyQt5.QtWidgets import QApplication as Q2App, QSystemTrayIcon, QMenu, QAction
-from PyQt5.QtGui import QIcon as Q2Icon
 
 from multiprocessing import cpu_count
 from desk_functions import myMsgBox
@@ -25,21 +23,8 @@ import qt_material
 counter = 0
 theme_color_tuple = (139, 195, 74)
 theme_color_str = "106, 106, 106"
+in_tray = False
 
-
-# class SystemTray(QSystemTrayIcon):
-#     def __init__(self, icon, parent=None):
-#         super(SystemTray, self).__init__(icon, parent)
-#         self.setToolTip("Atlas!")
-#         menu = QMenu(parent)
-#         restoreApp = menu.addAction('Maximize App')
-#         restoreApp.setIcon(QIcon("files/feather/cpu.svg"))
-#         menu.addSeparator()
-#         self.setContextMenu(menu)
-#         self.activated.connect(self.trayActivated)
-#
-#     def trayActivated(self, reason):
-#         pass
 
 
 class Work(QObject):
@@ -457,21 +442,27 @@ class Dashboard(QMainWindow):
         self.stackSetter(self.ui.btnProcessor, self.ui.stkProcessor, 2)
 
     def sendToTray(self):
-        app2 = Q2App(sys.argv)
+        if self.ui.chkTray.isChecked():
+            self.tray = QSystemTrayIcon(QIcon('files/feather/cpu.svg'), parent=app)
+            self.tray.setToolTip('Check out my tray')
+            self.tray.show()
 
-        tray = QSystemTrayIcon(Q2Icon('files/feather/cpu.svg'), parent=app2)
-        tray.setToolTip('Check out my tray')
-        tray.show()
+            menu = QMenu()
 
-        menu = QMenu()
+            restoreAct = menu.addAction('Restore')
+            restoreAct.triggered.connect(self.hideTray)
+            exitAct = menu.addAction('Exit')
+            exitAct.triggered.connect(app.quit)
 
-        restoreAct = menu.addAction('Restore')
-        restoreAct.triggered.connect(self.show)
-        exitAct = menu.addAction('Exit')
-        exitAct.triggered.connect(app.quit)
+            self.tray.setContextMenu(menu)
+            self.hide()
 
-        tray.setContextMenu(menu)
-        self.hide()
+    def hideTray(self):
+        self.show()
+        self.tray.hide()
+        self.ui.chkTray.setChecked(False)
+
+
 
     def showRestore(self):
         if self.isMaximized():
@@ -543,7 +534,6 @@ class Splash(QMainWindow):
             self.main.show()
 
             self.close()
-
         counter += 1
 
 
