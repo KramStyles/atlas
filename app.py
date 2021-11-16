@@ -429,6 +429,7 @@ class Dashboard(QMainWindow):
         self.ui.btnRestore.clicked.connect(self.showRestore)
         self.ui.btnMenu.clicked.connect(self.animateMenu)
         self.ui.chkTray.stateChanged.connect(self.sendToTray)
+        self.ui.chkSaveData.stateChanged.connect(self.saveData)
 
         # Show stacked widgets
         # self.ui.btnBattery.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.stkBattery))
@@ -462,7 +463,11 @@ class Dashboard(QMainWindow):
         self.tray.hide()
         self.ui.chkTray.setChecked(False)
 
-
+    def saveData(self):
+        if self.ui.chkSaveData.isChecked():
+            os.system(f'{os.getcwd()}\\files\\stop.bat')
+        else:
+            print(False)
 
     def showRestore(self):
         if self.isMaximized():

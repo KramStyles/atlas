@@ -483,6 +483,16 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_5">
           <item>
+           <widget class="QCheckBox" name="chkSaveData">
+            <property name="styleSheet">
+             <string notr="true">font-family: montserrat;</string>
+            </property>
+            <property name="text">
+             <string>SAVE DATA</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QFrame" name="frmBodyRight">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
