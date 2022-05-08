@@ -464,10 +464,22 @@ class Dashboard(QMainWindow):
         self.ui.chkTray.setChecked(False)
 
     def saveData(self):
+        isSaving = False
         if self.ui.chkSaveData.isChecked():
-            os.system(f'{os.getcwd()}\\files\\stop.bat')
+            if not isSaving:
+            # os.system(f'{os.getcwd()}\\files\\stop.bat')
+                try:
+                    # Code to save data here
+                    isSaving = True
+                except Exception as err:
+                    print('Error:', err)
         else:
-            print(False)
+            reply = myMsgBox("Are you sure you want to turn off Data Saver?", "Turn off Saver?!", QMessageBox.Question, QMessageBox.Yes | QMessageBox.No)
+            if reply == QMessageBox.Yes:
+                print("Wakaa")
+            else:
+                # Todo: make save checkbox respond well
+                self.ui.chkSaveData.setChecked(True)
 
     def showRestore(self):
         if self.isMaximized():
